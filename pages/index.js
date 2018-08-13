@@ -1,13 +1,32 @@
-import React from 'react';
-import bulma from '../styles/bulma.scss';
-import { Home } from './home'
+import {
+  Hero,
+  HeroBody,
+  Container,
+  Title,
+  Subtitle,
+  Columns,
+  Column,
+  Box
+} from "bloomer";
 
-const Index = () => (
-  <section>
-    <style dangerouslySetInnerHTML={{ __html: bulma }} />
-    <Home />
-  </section>
+export default () => (
+  <Hero isColor="info" isBold isFullHeight>
+    <HeroBody>
+      <Container hasTextAlign="centered">
+        <Title>Thomas Nairn</Title>
+        <Subtitle>Today I learned</Subtitle>
+        <Columns isCentered>
+          <Column isSize={{desktop: 8, tablet: 10, mobile: 12}}>
+            <Box>
+              <Columns isMobile>
+                <Column isSize={3}>icons</Column>
+                <Column>
+                </Column>
+              </Columns>
+            </Box>
+          </Column>
+        </Columns>
+      </Container>
+    </HeroBody>
+  </Hero>
 );
-
-export default Index;
-
