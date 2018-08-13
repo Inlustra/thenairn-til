@@ -1,32 +1,21 @@
-import {
-  Hero,
-  HeroBody,
-  Container,
-  Title,
-  Subtitle,
-  Columns,
-  Column,
-  Box
-} from "bloomer";
+import React from 'react';
+import Til from '../components/Til/Til';
 
 export default () => (
-  <Hero isColor="info" isBold isFullHeight>
-    <HeroBody>
-      <Container hasTextAlign="centered">
-        <Title>Thomas Nairn</Title>
-        <Subtitle>Today I learned</Subtitle>
-        <Columns isCentered>
-          <Column isSize={{desktop: 8, tablet: 10, mobile: 12}}>
-            <Box>
-              <Columns isMobile>
-                <Column isSize={3}>icons</Column>
-                <Column>
-                </Column>
-              </Columns>
-            </Box>
-          </Column>
-        </Columns>
-      </Container>
-    </HeroBody>
-  </Hero>
+  <div className="hero is-danger is-bold is-fullheight">
+    <div className="hero-body">
+      <div className="container has-text-centered">
+        <div className="title">Thomas Nairn</div>
+        <div className="subtitle">Today I learned</div>
+        <div className="columns is-centered">
+          <div className="column is-8-desktop is-10-tablet is-12-mobile">
+            <Til
+              title="The reason quantum security is perfect. The particles are so small
+            that light would affect the position of the particle itself."
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 );

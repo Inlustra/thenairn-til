@@ -1,6 +1,8 @@
 // ./pages/_document.js
+import React from "react";
 import Document, { Head, Main, NextScript } from "next/document";
-import bulma from "../styles/bulma.scss";
+import "bulma";
+import "devicon";
 
 export default class MyDocument extends Document {
   render() {

@@ -1,16 +1,25 @@
 const withPlugins = require('next-compose-plugins');
 
-const withSass = require("@zeit/next-sass");
-const withSassConfig = {
-    cssModules: false,
-    sassLoaderOptions: {
-      includePaths: ["node_modules", "styles"]
-    }
-  }
+const withCss = require('@zeit/next-css');
+const withCssConfig = {};
 
-const withImages = require("next-images")
-const withImagesConfig = {}
+const withSass = require('@zeit/next-sass');
+const withSassConfig = {
+  cssModules: false,
+  sassLoaderOptions: {
+    includePaths: ['node_modules', 'styles']
+  }
+};
+
+const withImages = require('next-images');
+const withImagesConfig = {};
+
+const withFonts = require('next-fonts');
+const withFontsConfig = {};
 
 module.exports = withPlugins([
-    [withSass, withSassConfig], [withImages, withImagesConfig]
+  [withCss, withCssConfig],
+  [withSass, withSassConfig],
+  [withImages, withImagesConfig],
+  [withFonts, withFontsConfig]
 ]);
