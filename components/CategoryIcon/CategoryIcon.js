@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({ category }) => {
+export default ({ category, type = "plain" }) => {
   return (
-  <span className={`devicon-${category}-original`}/>
+  <span className={`devicon-${category}-${type} colored`}/>
 )};
