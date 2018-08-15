@@ -13,15 +13,8 @@ const golangExample = `func sum(nums ...int) {
     fmt.Println(total)
 }`
 
-export function getLanguageMeta(language) {
-  return {
-      syntax: language,
-  //    image: import(`./icons/${language}.svg`)
-  }
-}
-
-export default ({ title, code, expanded }) => (
-  <div className="til">
+export const Til = ({ title, code, expanded }) => (
+ /* <div className="til">
     <div className="box">
       <div className="columns is-vcentered is-mobile">
         <div className="column is-2">
@@ -41,9 +34,9 @@ export default ({ title, code, expanded }) => (
           <span className="icon is-medium is-size-3">
             <CategoryIcon category="react"/>
           </span>
-      </div>
+      </div>*/
       <SyntaxHighlighter language='go' style={dark}>{golangExample}</SyntaxHighlighter>
       
-    </div>
-  </div>
+   /* </div> 
+  </div>*/
 );
