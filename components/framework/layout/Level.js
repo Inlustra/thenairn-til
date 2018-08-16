@@ -11,12 +11,12 @@ export const Level = styled.div`
 Level.Item = styled.div`
   display: flex;
   align-items: center;
-  ${({isNarrow}) => !isNarrow && css`
+  ${({narrow}) => !narrow && css`
     flex-grow: 1;
     flex-shrink: 0;
   `}
 `
 
 Level.Item.propTypes = {
-  isNarrow: PropTypes.bool
+  narrow: PropTypes.bool
 }

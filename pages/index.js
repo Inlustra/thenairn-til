@@ -14,11 +14,11 @@ const golangExample = `func sum(nums ...int) {
 }`;
 
 export default () => (
-  <Hero isFullHeight isColor="primary">
+  <Hero fullHeight bold color="danger">
     <Hero.Body>
       <Container>
-        <Columns isCentered>
-          <Column isSize={{ mobile: 12, tablet: 10, desktop: 8 }}>
+        <Columns centered>
+          <Column size={{ mobile: 12, tablet: 10, desktop: 8 }}>
             <Til
               title=" The reason quantum security is perfect. The particles are so small
               that light would affect the position of the particle itself."

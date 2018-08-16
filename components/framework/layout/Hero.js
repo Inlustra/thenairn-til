@@ -21,33 +21,34 @@ export const Hero = styled.div`
   align-items: stretch;
   flex-direction: column;
   justify-content: space-between;
-  min-height: ${({ isFullHeight }) => isFullHeight && '100vh'};
-  min-height: ${({ isHalfHeight }) => isHalfHeight && '50vh'};
-  
-  ${({ isColor, isBold, theme }) => {
-    console.log(theme.colors);
-    console.log(theme.colors[isColor]);
-    console.log(isColor);
-    const bg = theme.colors[isColor];
-    const color = colorInvert(bg);
-    if (isBold) {
+  min-height: ${({ fullHeight }) => fullHeight && '100vh'};
+  min-height: ${({ halfHeight }) => halfHeight && '50vh'};
+
+  ${({ color, bold, theme }) => {
+    const bg = theme.colors[color];
+    const textColor = colorInvert(bg);
+    if (bold) {
       const colorTopLeft = darken(0.1, saturate(0.1, adjustHue(-10, bg)));
       const colorBottomRight = lighten(0.05, saturate(0.05, adjustHue(10, bg)));
+      console.log(bg)
+      console.log(colorTopLeft)
+      console.log(colorBottomRight)
       return `
+        color: ${textColor};
         background-image: linear-gradient(141deg, ${colorTopLeft} 0%, ${bg} 71%, ${colorBottomRight} 100%);
       `;
     } else {
       return css`
         background-color: ${bg};
-        color: ${color};
+        color: ${textColor};
       `;
     }
   }};
 
 
     
-  ${({ isSmall }) =>
-    isSmall &&
+  ${({ small }) =>
+    small &&
     css`
       ${Body} {
         padding-bottom: 1.5rem;
@@ -55,8 +56,8 @@ export const Hero = styled.div`
       }
     `}
 
-  ${({ isMedium }) =>
-    isMedium &&
+  ${({ medium }) =>
+    medium &&
     css`
       ${media('tablet')} {
         ${Body} {
@@ -66,8 +67,8 @@ export const Hero = styled.div`
       }
     `}
 
-  ${({ isLarge }) =>
-    isLarge &&
+  ${({ large }) =>
+    large &&
     css`
       ${media('tablet')} {
         ${Body} {
@@ -79,12 +80,12 @@ export const Hero = styled.div`
 `;
 
 Hero.propTypes = {
-  isFullHeight: PropTypes.bool,
-  isLarge: PropTypes.bool,
-  isMedium: PropTypes.bool,
-  isSmall: PropTypes.bool,
-  isColor: PropTypes.string,
-  isBold: PropTypes.bool
+  fullHeight: PropTypes.bool,
+  large: PropTypes.bool,
+  medium: PropTypes.bool,
+  small: PropTypes.bool,
+  color: PropTypes.string,
+  bold: PropTypes.bool
 };
 
 Hero.Body = Body;

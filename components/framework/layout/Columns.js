@@ -1,9 +1,9 @@
-import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
-import { media, toPercentage } from "../utils";
+import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
+import { media, toPercentage } from '../utils';
 
 export const theme = {
-  gap: "0.75rem"
+  gap: '0.75rem'
 };
 
 export const Columns = styled.div`
@@ -18,26 +18,26 @@ export const Columns = styled.div`
     margin-bottom: calc(1.5rem - ${({ theme }) => theme.Columns.gap});
   }
 
-  ${({ isCentered }) =>
-    isCentered &&
+  ${({ centered }) =>
+    centered &&
     css`
       justify-content: center;
     `};
 
-  ${({ isVCentered }) =>
-    isVCentered &&
+  ${({ vCentered }) =>
+    vCentered &&
     css`
       align-items: center;
     `}
 
-  ${({ isMultiline }) =>
-    isMultiline &&
+  ${({ multiline }) =>
+    multiline &&
     css`
       flex-wrap: wrap;
     `}
 
-  ${({ isGapless }) =>
-    isGapless &&
+  ${({ gapless }) =>
+    gapless &&
     css`
       margin-left: 0;
       margin-right: 0;
@@ -55,8 +55,8 @@ export const Columns = styled.div`
 
     /* Responsiveness */
 
-    ${({ isMobile }) =>
-      isMobile &&
+    ${({ mobile }) =>
+      mobile &&
       css`
         display: flex;
       `}
@@ -76,10 +76,12 @@ export const Columns = styled.div`
 `;
 
 Columns.propTypes = {
-  isCentered: PropTypes.bool,
-  isGapless: PropTypes.bool,
-  isMobile: PropTypes.bool,
-  isVCentered: PropTypes.bool
+  centered: PropTypes.bool,
+  gapless: PropTypes.bool,
+  mobile: PropTypes.bool,
+  vCentered: PropTypes.bool,
+  multiline: PropTypes.bool,
+  fromSize: PropTypes.string
 };
 
 export const Column = styled.div`
@@ -89,29 +91,32 @@ export const Column = styled.div`
   flex-shrink: 1;
   padding: ${({ theme }) => theme.Columns.gap};
 
-  ${({ isSize }) => {
-    switch (typeof isSize) {
-      case "number":
+  ${({ size }) => {
+    switch (typeof size) {
+      case 'number':
         return css`
           flex: none;
-          width: ${toPercentage(isSize / 12)};
+          width: ${toPercentage(size / 12)};
         `;
-      case "object":
-        return Object.keys(isSize).map(
+      case 'object':
+        return Object.keys(size).map(
           mediaSize =>
             css`
               ${media(mediaSize)} {
                 flex: none;
-                width: ${toPercentage(isSize[mediaSize] / 12)};
+                width: ${toPercentage(size[mediaSize] / 12)};
               }
             `
         );
       default:
-        return "";
+        return '';
     }
   }};
 `;
 
 Column.propTypes = {
-  isSize: PropTypes.bool
-}
+  size: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.objectOf(PropTypes.number)
+  ])
+};
