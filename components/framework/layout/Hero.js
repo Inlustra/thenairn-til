@@ -1,6 +1,7 @@
-import styled, { css } from "styled-components";
-import PropTypes from "prop-types";
-import { media, colorInvert } from "../utils";
+import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
+import { media, colorInvert } from '../utils';
+import { darken, lighten, saturate, adjustHue } from 'polished';
 
 const Body = styled.div`
   display: flex;
@@ -20,15 +21,30 @@ export const Hero = styled.div`
   align-items: stretch;
   flex-direction: column;
   justify-content: space-between;
-  min-height: ${({ isFullHeight }) => isFullHeight && "100vh"};
-  min-height: ${({ isHalfHeight }) => isHalfHeight && "50vh"};
+  min-height: ${({ isFullHeight }) => isFullHeight && '100vh'};
+  min-height: ${({ isHalfHeight }) => isHalfHeight && '50vh'};
+  
+  ${({ isColor, isBold, theme }) => {
+    console.log(theme.colors);
+    console.log(theme.colors[isColor]);
+    console.log(isColor);
+    const bg = theme.colors[isColor];
+    const color = colorInvert(bg);
+    if (isBold) {
+      const colorTopLeft = darken(0.1, saturate(0.1, adjustHue(-10, bg)));
+      const colorBottomRight = lighten(0.05, saturate(0.05, adjustHue(10, bg)));
+      return `
+        background-image: linear-gradient(141deg, ${colorTopLeft} 0%, ${bg} 71%, ${colorBottomRight} 100%);
+      `;
+    } else {
+      return css`
+        background-color: ${bg};
+        color: ${color};
+      `;
+    }
+  }};
 
-  ${({ isColor }) =>
-    isColor &&
-    css`
-      background-color: ${({ theme }) => theme.colors[isColor]};
-      color: ${({ theme }) => colorInvert(theme.colors[isColor])};
-    `};
+
     
   ${({ isSmall }) =>
     isSmall &&
@@ -42,7 +58,7 @@ export const Hero = styled.div`
   ${({ isMedium }) =>
     isMedium &&
     css`
-      ${media("tablet")} {
+      ${media('tablet')} {
         ${Body} {
           padding-bottom: 9rem;
           padding-top: 9rem;
@@ -53,7 +69,7 @@ export const Hero = styled.div`
   ${({ isLarge }) =>
     isLarge &&
     css`
-      ${media("tablet")} {
+      ${media('tablet')} {
         ${Body} {
           padding-bottom: 18rem;
           padding-top: 18rem;
@@ -67,7 +83,8 @@ Hero.propTypes = {
   isLarge: PropTypes.bool,
   isMedium: PropTypes.bool,
   isSmall: PropTypes.bool,
-  isColor: PropTypes.bool,
+  isColor: PropTypes.string,
+  isBold: PropTypes.bool
 };
 
 Hero.Body = Body;
