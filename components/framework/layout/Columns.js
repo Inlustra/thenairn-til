@@ -1,9 +1,9 @@
-import styled, { css } from 'styled-components';
-import PropTypes from 'prop-types';
-import { mediaGreaterThan, toPercentage, mediaLessThan } from '../utils';
+import styled, { css } from "styled-components";
+import PropTypes from "prop-types";
+import { media, toPercentage } from "../utils";
 
 export const theme = {
-  gap: '0.75rem'
+  gap: "0.75rem"
 };
 
 export const Columns = styled.div`
@@ -61,10 +61,12 @@ export const Columns = styled.div`
         display: flex;
       `}
 
-    ${({ isDesktop }) =>
-      isDesktop
-        ? mediaGreaterThan('desktop')`
-            display: flex;
+    ${({ fromSize }) =>
+      fromSize
+        ? css`
+            ${media(fromSize)} {
+              display: flex;
+            }
           `
         : css`
             display: flex;
@@ -86,41 +88,23 @@ export const Column = styled.div`
 
   ${({ isSize }) => {
     switch (typeof isSize) {
-      case 'number':
+      case "number":
         return css`
           flex: none;
           width: ${toPercentage(isSize / 12)};
         `;
-      case 'object':
+      case "object":
         return Object.keys(isSize).map(
           mediaSize =>
-            mediaGreaterThan(mediaSize)`
-              flex: none;
-              width: ${toPercentage(isSize[mediaSize] / 12)};
+            css`
+              ${media(mediaSize)} {
+                flex: none;
+                width: ${toPercentage(isSize[mediaSize] / 12)};
+              }
             `
         );
       default:
-        return '';
-    }
-  }};
-
-  ${({ isOffset }) => {
-    switch (typeof isOffset) {
-      case 'number':
-        return css`
-          flex: none;
-          width: ${toPercentage(isOffset / 12)};
-        `;
-      case 'object':
-        return Object.keys(isOffset).map(
-          mediaSize =>
-            mediaGreaterThan(mediaSize)`
-              flex: none;
-              width: ${toPercentage(isOffset[mediaSize] / 12)};
-            `
-        );
-      default:
-        return css``;
+        return "";
     }
   }};
 `;

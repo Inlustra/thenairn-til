@@ -44,6 +44,10 @@ const globals = theme =>
         font-size: 1rem;
         font-weight: ${({ theme }) => theme.defaultFontWeight};
         line-height: ${({ theme }) => theme.defaultLineHeight};
+      },
+
+      pre {
+        margin: 0;
       }
     `
   );

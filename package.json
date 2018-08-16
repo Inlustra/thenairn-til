@@ -28,6 +28,7 @@
     "next": "^6.1.1",
     "next-compose-plugins": "^2.1.1",
     "next-images": "^0.10.6",
+    "polished": "^1.9.3",
     "prettier": "^1.14.2",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
