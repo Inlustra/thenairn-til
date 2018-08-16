@@ -21,7 +21,7 @@ export const theme = {
   }
 };
 
-export const Text = styled.div`
+export const Text = styled.p`
   ${({ inline }) => inline && `display: inline;`};
 
   ${({ size, theme }) => {
@@ -52,7 +52,7 @@ export const Text = styled.div`
     css`
       font-weight: ${typeof weight === 'number'
         ? weight
-        : theme.Text.weights[weight] || theme.defaultTextColor};
+        : theme.Text.weights[weight] || theme.defaultFontWeight};
     `};
 
   text-align: ${({ centered, justified, left, right }) =>
@@ -75,3 +75,11 @@ Text.propTypes = {
   weight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   color: PropTypes.string
 };
+
+export const Heading = Text.withComponent('h1')
+Heading.h1 = Heading.withComponent('h1')
+Heading.h2 = Heading.withComponent('h2')
+Heading.h3 = Heading.withComponent('h3')
+Heading.h4 = Heading.withComponent('h4')
+Heading.h5 = Heading.withComponent('h5')
+Heading.h6 = Heading.withComponent('h6')
