@@ -1,17 +1,18 @@
-import { css } from 'styled-components';
+import { css } from "styled-components";
+import { minireset } from "./minireset";
 
 const custom = (theme, css) => {
   return css
     .map(string => {
       switch (typeof string) {
-        case 'function':
+        case "function":
           return string({ theme });
         default:
           return string;
       }
     })
-    .join('')
-    .split('\n');
+    .join("")
+    .split("\n");
 };
 const globals = theme =>
   //Workaround until v4 of styled-components
@@ -26,8 +27,9 @@ const globals = theme =>
         min-width: 300px;
         overflow-x: hidden;
         overflow-y: scroll;
-        text-rendering: 'optimize-legibilty';
+        text-rendering: optimizeLegibility;
         text-size-adjust: 100%;
+        box-sizing: border-box;
       }
 
       body,
@@ -44,11 +46,14 @@ const globals = theme =>
         font-size: 1rem;
         font-weight: ${({ theme }) => theme.defaultFontWeight};
         line-height: ${({ theme }) => theme.defaultLineHeight};
-      },
+      }
 
+      ,
       pre {
         margin: 0;
       }
+
+      ${minireset};
     `
   );
 

@@ -1,4 +1,3 @@
-import { css } from "styled-components";
 import { parseToHsl } from "polished";
 
 function deepValue(obj, path) {

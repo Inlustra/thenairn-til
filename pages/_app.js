@@ -1,6 +1,6 @@
 import App from 'next/app';
 import React from 'react';
-import { ThemeProvider } from 'styled-components/dist/styled-components.cjs';
+import { ThemeProvider } from 'styled-components';
 import { theme } from '../components/framework/theme';
 
 export default class MyApp extends App {

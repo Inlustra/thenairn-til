@@ -63,7 +63,11 @@ export const Hero = styled.div`
 `;
 
 Hero.propTypes = {
-  isFullHeight: PropTypes.bool
+  isFullHeight: PropTypes.bool,
+  isLarge: PropTypes.bool,
+  isMedium: PropTypes.bool,
+  isSmall: PropTypes.bool,
+  isColor: PropTypes.bool,
 };
 
 Hero.Body = Body;

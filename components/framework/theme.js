@@ -1,9 +1,9 @@
 import { theme as Box } from "./elements/Box";
 import { theme as Columns } from "./layout/Columns";
+import { theme as Text } from "./elements/Text";
 import { em, stripUnit, hsl } from "polished";
 export const px = number => number + "px";
 export const rem = number => number + "rem";
-
 
 const colors = {
   primary: hsl(171, 1, 0.41),
@@ -52,5 +52,6 @@ export const theme = {
 
   // Components
   Columns,
-  Box
+  Box,
+  Text
 };

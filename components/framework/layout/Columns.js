@@ -60,7 +60,7 @@ export const Columns = styled.div`
       css`
         display: flex;
       `}
-
+      
     ${({ fromSize }) =>
       fromSize
         ? css`
@@ -69,7 +69,9 @@ export const Columns = styled.div`
             }
           `
         : css`
-            display: flex;
+            ${media('tablet')} {
+              display: flex;
+            }
           `}
 `;
 
@@ -83,6 +85,7 @@ Columns.propTypes = {
 export const Column = styled.div`
   display: block;
   flex-basis: 0;
+  flex-grow: 1;
   flex-shrink: 1;
   padding: ${({ theme }) => theme.Columns.gap};
 
@@ -108,3 +111,7 @@ export const Column = styled.div`
     }
   }};
 `;
+
+Column.propTypes = {
+  isSize: PropTypes.bool
+}
