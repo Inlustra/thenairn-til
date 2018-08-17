@@ -1,6 +1,8 @@
 import { theme as Box } from './elements/Box';
-import { theme as Columns } from './layout/Columns';
 import { theme as Text } from './elements/Text';
+import { theme as Icon } from './elements/Icon';
+
+import { theme as Columns } from './layout/Columns';
 import { em, stripUnit, hsl } from 'polished';
 export const px = number => number + 'px';
 export const rem = number => number + 'rem';
@@ -65,5 +67,6 @@ export const theme = {
   // Components
   Columns,
   Box,
-  Text
+  Text,
+  Icon
 };

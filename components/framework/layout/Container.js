@@ -10,7 +10,7 @@ export const Container = styled.div`
       breakpoint => css`
         ${theme.media[breakpoint]} {
           max-width: ${stripUnit(theme.breakpoints[breakpoint]) - 2 * theme.gap};
-          width: 
+          width: ${stripUnit(theme.breakpoints[breakpoint]) - 2 * theme.gap};
         }
       `
     )};

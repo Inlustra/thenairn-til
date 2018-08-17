@@ -112,11 +112,35 @@ export const Column = styled.div`
         return '';
     }
   }};
+  
+  ${({ narrow }) => {
+    switch (typeof narrow) {
+      case 'boolean':
+        return narrow && css`
+          flex: none;
+        `;
+      case 'object':
+        return Object.keys(narrow).map(
+          mediaSize =>
+            css`
+              ${media(mediaSize)} {
+                flex: none;
+              }
+            `
+        );
+      default:
+        return '';
+    }
+  }};
 `;
 
 Column.propTypes = {
   size: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.objectOf(PropTypes.number)
+  ]),
+  narrow: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.objectOf(PropTypes.boolean)
   ])
 };

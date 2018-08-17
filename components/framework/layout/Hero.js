@@ -30,9 +30,6 @@ export const Hero = styled.div`
     if (bold) {
       const colorTopLeft = darken(0.1, saturate(0.1, adjustHue(-10, bg)));
       const colorBottomRight = lighten(0.05, saturate(0.05, adjustHue(10, bg)));
-      console.log(bg)
-      console.log(colorTopLeft)
-      console.log(colorBottomRight)
       return `
         color: ${textColor};
         background-image: linear-gradient(141deg, ${colorTopLeft} 0%, ${bg} 71%, ${colorBottomRight} 100%);
