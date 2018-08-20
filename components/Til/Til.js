@@ -1,12 +1,11 @@
-import React from "react";
-import { Box } from "../framework/elements/Box";
-import SyntaxHighlighter from "react-syntax-highlighter/prism";
-import { xonokai } from "react-syntax-highlighter/styles/prism";
-import styled from "styled-components";
-import { Columns, Column } from "../framework/layout/Columns";
-import { Text } from "../framework/elements/Text";
-import { Icon } from "../framework/elements/Icon";
-import { Container } from "../framework/layout/Container";
+import React from 'react';
+import { Box } from '../framework/elements/Box';
+import SyntaxHighlighter from 'react-syntax-highlighter/prism';
+import { xonokai } from 'react-syntax-highlighter/styles/prism';
+import styled from 'styled-components';
+import { Columns, Column } from '../framework/layout/Columns';
+import { Text } from '../framework/elements/Text';
+import { Icon } from '../framework/elements/Icon';
 
 export const TilText = styled(Box)`
   border-radius: 6px 6px 0 0;
@@ -39,6 +38,15 @@ export const TilCode = styled.pre`
   border: none !important;
 `;
 
+export const TilConcealIconContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const Til = ({ title, language, code, icons = [], expanded }) => (
   <article>
     <TilText>
@@ -62,17 +70,15 @@ export const Til = ({ title, language, code, icons = [], expanded }) => (
         showLineNumbers
       />
       <TilConceal>
-        <Container>
-          <Columns mobile centered vCentered>
-            {icons.map((icon, i) => (
-              <Column narrow key={i}>
-                <Icon size="medium">
-                  <img alt={icon} src={`/static/icons/${icon}.svg`} />
-                </Icon>
-              </Column>
-            ))}
-          </Columns>
-        </Container>
+        <Columns mobile centered vCentered>
+          {icons.map((icon, i) => (
+            <Column narrow key={i}>
+              <Icon size="medium">
+                <img alt={icon} src={`/static/icons/${icon}.svg`} />
+              </Icon>
+            </Column>
+          ))}
+        </Columns>
       </TilConceal>
     </TilMedia>
   </article>

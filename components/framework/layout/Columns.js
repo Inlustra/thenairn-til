@@ -7,9 +7,6 @@ export const theme = {
 };
 
 export const Columns = styled.div`
-  margin-left: -${({ theme }) => theme.Columns.gap};
-  margin-right: -${({ theme }) => theme.Columns.gap};
-  margin-top: -${({ theme }) => theme.Columns.gap};
 
   &:last-child {
     margin-bottom: -${({ theme }) => theme.Columns.gap};
@@ -25,8 +22,18 @@ export const Columns = styled.div`
     `};
 
   ${({ vCentered }) =>
+    !vCentered &&
+    css`
+      margin-left: -${({ theme }) => theme.Columns.gap};
+      margin-right: -${({ theme }) => theme.Columns.gap};
+      margin-top: -${({ theme }) => theme.Columns.gap};
+    `}
+
+  ${({ vCentered }) =>
     vCentered &&
     css`
+      height: 100%;
+      width: 100%;
       align-items: center;
     `}
 
@@ -112,13 +119,16 @@ export const Column = styled.div`
         return '';
     }
   }};
-  
+
   ${({ narrow }) => {
     switch (typeof narrow) {
       case 'boolean':
-        return narrow && css`
-          flex: none;
-        `;
+        return (
+          narrow &&
+          css`
+            flex: none;
+          `
+        );
       case 'object':
         return Object.keys(narrow).map(
           mediaSize =>
