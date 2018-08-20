@@ -46,6 +46,8 @@ export const TilMedia = styled.div`
 export const TilCode = styled.pre`
   margin: 0;
   border: none !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
 `;
 
 export const TilConcealIconContainer = styled.div`
