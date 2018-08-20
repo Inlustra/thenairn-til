@@ -21,19 +21,20 @@ export const Columns = styled.div`
       justify-content: center;
     `};
 
-  ${({ vCentered }) =>
-    !vCentered &&
-    css`
-      margin-left: -${({ theme }) => theme.Columns.gap};
-      margin-right: -${({ theme }) => theme.Columns.gap};
-      margin-top: -${({ theme }) => theme.Columns.gap};
-    `}
+  ${({ fullHeight }) =>
+    fullHeight
+      ? css`
+          height: 100%;
+        `
+      : css`
+          margin-left: -${({ theme }) => theme.Columns.gap};
+          margin-right: -${({ theme }) => theme.Columns.gap};
+          margin-top: -${({ theme }) => theme.Columns.gap};
+        `}
 
   ${({ vCentered }) =>
     vCentered &&
     css`
-      height: 100%;
-      width: 100%;
       align-items: center;
     `}
 
@@ -88,7 +89,8 @@ Columns.propTypes = {
   mobile: PropTypes.bool,
   vCentered: PropTypes.bool,
   multiline: PropTypes.bool,
-  fromSize: PropTypes.string
+  fromSize: PropTypes.string,
+  fullHeight: PropTypes.bool
 };
 
 export const Column = styled.div`

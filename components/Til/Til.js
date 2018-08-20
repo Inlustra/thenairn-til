@@ -2,7 +2,7 @@ import React from 'react';
 import { Box } from '../framework/elements/Box';
 import SyntaxHighlighter from 'react-syntax-highlighter/prism';
 import { xonokai } from 'react-syntax-highlighter/styles/prism';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Columns, Column } from '../framework/layout/Columns';
 import { Text } from '../framework/elements/Text';
 import { Icon } from '../framework/elements/Icon';
@@ -10,14 +10,6 @@ import { Icon } from '../framework/elements/Icon';
 export const TilText = styled(Box)`
   border-radius: 6px 6px 0 0;
   box-shadow: none;
-`;
-
-export const TilMedia = styled.div`
-  position: relative;
-  overflow: hidden;
-  border-radius: 0 0 6px 6px !important;
-  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
-  max-height: 100px;
 `;
 
 export const TilConceal = styled.div`
@@ -31,6 +23,24 @@ export const TilConceal = styled.div`
     rgba(90, 90, 90, 0.8),
     rgba(0, 0, 0, 0)
   );
+`;
+
+export const TilMedia = styled.div`
+  position: relative;
+  overflow: hidden;
+  border-radius: 0 0 6px 6px !important;
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+
+  ${({ expanded }) =>
+    expanded
+      ? css`
+          & > ${TilConceal} {
+            visibility: hidden;
+          }
+        `
+      : css`
+          max-height: 100px;
+        `};
 `;
 
 export const TilCode = styled.pre`
@@ -70,7 +80,7 @@ export const Til = ({ title, language, code, icons = [], expanded }) => (
         showLineNumbers
       />
       <TilConceal>
-        <Columns mobile centered vCentered>
+        <Columns mobile centered vCentered fullHeight>
           {icons.map((icon, i) => (
             <Column narrow key={i}>
               <Icon size="medium">

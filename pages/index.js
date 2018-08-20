@@ -35,7 +35,8 @@ export default () => (
               that light would affect the position of the particle itself."
               language="go"
               code={golangExample}
-              icons={["react", "go", "android", "bower", "chrome", "debian", "angularjs"]}
+              icons={["go"]}
+              expanded={false}
             />
           </Column>
         </Columns>
