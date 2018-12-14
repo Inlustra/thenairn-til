@@ -3,7 +3,7 @@ import { media, colorInvert } from "../utils";
 import { darken, lighten, saturate, adjustHue } from "polished";
 import { BaseTheme, Color } from "../base";
 
-const Body = styled.div`
+export const Body = styled.div`
   display: flex;
   align-items: center;
   flex-grow: 1;

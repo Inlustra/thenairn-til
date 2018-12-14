@@ -96,15 +96,17 @@ export const Til = ({ title, language, code, icons = [], expanded }: Props) => {
           children={code}
           showLineNumbers
         />
-        <Columns mobile centered vCentered fullHeight>
-          {icons.map((icon, i) => (
-            <Column narrow key={i}>
-              <Icon size="medium">
-                <img alt={icon} src={`/static/icons/${icon}.svg`} />
-              </Icon>
-            </Column>
-          ))}
-        </Columns>
+        <TilConceal>
+          <Columns mobile centered vCentered fullHeight>
+            {icons.map((icon, i) => (
+              <Column narrow key={i}>
+                <Icon size="medium">
+                  <img alt={icon} src={`/static/icons/${icon}.svg`} />
+                </Icon>
+              </Column>
+            ))}
+          </Columns>
+        </TilConceal>
       </TilMedia>
     </article>
   );

@@ -4,8 +4,8 @@ const withTypescript = require("@zeit/next-typescript");
 
 const withBundleAnalyzer = require("@zeit/next-bundle-analyzer");
 const withBundleAnalyzerConfig = {
-  analyzeServer: true,
-  analyzeBrowser: true,
+  analyzeServer: ["server", "both"].includes(process.env.BUNDLE_ANALYZE),
+  analyzeBrowser: ["browser", "both"].includes(process.env.BUNDLE_ANALYZE),
   bundleAnalyzerConfig: {
     server: {
       analyzerMode: "static",

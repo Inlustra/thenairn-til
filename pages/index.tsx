@@ -1,9 +1,9 @@
 import React from "react";
 import { Til } from "../components/Til/Til";
-import { Hero } from "../components/framework/layout/Hero";
+import { Hero, Body } from "../components/framework/layout/Hero";
 import { Container } from "../components/framework/layout/Container";
 import { Columns, Column } from "../components/framework/layout/Columns";
-import { Text, Heading } from "../components/framework/elements/Text";
+import { Text } from "../components/framework/elements/Text";
 
 const golangExample = `func sum(nums ...int) {
   fmt.Print(nums, " ")
@@ -16,13 +16,13 @@ const golangExample = `func sum(nums ...int) {
 
 export default () => (
   <Hero fullHeight bold color="danger">
-    <Hero.Body>
+    <Body>
       <Container>
         <Columns centered>
           <Column>
-            <Heading size={3} color="whiteTer" weight="semibold" centered>
+            <Text as="h1" size={3} color="whiteTer" weight="semibold" centered>
               Thomas Nairn
-            </Heading>
+            </Text>
             <Text size={5} color="whiteTer" centered>
               Today I learned
             </Text>
@@ -36,11 +36,10 @@ export default () => (
               language="go"
               code={golangExample}
               icons={["go"]}
-              expanded={false}
             />
           </Column>
         </Columns>
       </Container>
-    </Hero.Body>
+    </Body>
   </Hero>
 );

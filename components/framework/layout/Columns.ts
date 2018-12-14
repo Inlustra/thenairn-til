@@ -103,8 +103,8 @@ export type ColumnSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
 export interface ColumnProps {
   theme: Theme;
-  size?: ColumnSize | { [K in Breakpoint]: ColumnSize };
-  narrow?: boolean | { [K in Breakpoint]: true };
+  size?: ColumnSize | { [K in Breakpoint]?: ColumnSize };
+  narrow?: boolean | { [K in Breakpoint]?: true };
 }
 
 export const Column = styled.div<ColumnProps>`
@@ -127,7 +127,7 @@ export const Column = styled.div<ColumnProps>`
             css`
               ${media(mediaSize)} {
                 flex: none;
-                width: ${toPercentage(size[mediaSize] / 12)};
+                width: ${toPercentage((size[mediaSize] as ColumnSize) / 12)};
               }
             `
         );

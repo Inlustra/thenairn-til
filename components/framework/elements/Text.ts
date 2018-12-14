@@ -31,7 +31,7 @@ export interface Props {
   theme: Theme;
   inline?: boolean;
   weight?: number | TextWeight;
-  size?: TextSize | { [K in Breakpoint]: TextSize };
+  size?: TextSize | { [K in Breakpoint]?: TextSize };
   centered?: boolean;
   justified?: boolean;
   left?: boolean;
@@ -48,7 +48,7 @@ export const Text = styled.p<Props>`
           mediaSize =>
             css`
               ${media(mediaSize)} {
-                font-size: ${theme.Text.sizes[size[mediaSize]] ||
+                font-size: ${theme.Text.sizes[size[mediaSize] as TextSize] ||
                   theme.defaultFontSize};
               }
             `
