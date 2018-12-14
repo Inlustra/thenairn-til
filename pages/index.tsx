@@ -1,9 +1,9 @@
-import React from 'react';
-import { Til } from '../components/Til/Til';
-import { Hero } from '../components/framework/layout/Hero';
-import { Container } from '../components/framework/layout/Container';
-import { Columns, Column } from '../components/framework/layout/Columns';
-import { Text, Heading } from '../components/framework/elements/Text';
+import React from "react";
+import { Til } from "../components/Til/Til";
+import { Hero } from "../components/framework/layout/Hero";
+import { Container } from "../components/framework/layout/Container";
+import { Columns, Column } from "../components/framework/layout/Columns";
+import { Text, Heading } from "../components/framework/elements/Text";
 
 const golangExample = `func sum(nums ...int) {
   fmt.Print(nums, " ")

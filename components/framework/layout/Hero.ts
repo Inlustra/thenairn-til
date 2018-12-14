@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components';
-import PropTypes from 'prop-types';
-import { media, colorInvert } from '../utils';
-import { darken, lighten, saturate, adjustHue } from 'polished';
+import styled, { css } from "styled-components";
+import { media, colorInvert } from "../utils";
+import { darken, lighten, saturate, adjustHue } from "polished";
+import { BaseTheme, Color } from "../base";
 
 const Body = styled.div`
   display: flex;
@@ -16,15 +16,26 @@ const Body = styled.div`
   }
 `;
 
-export const Hero = styled.div`
+export interface Props {
+  theme: BaseTheme;
+  fullHeight?: boolean;
+  halfHeight?: boolean;
+  color: Color;
+  bold?: boolean;
+  small?: boolean;
+  medium?: boolean;
+  large?: boolean;
+}
+
+export const Hero = styled.div<Props>`
   display: flex;
   align-items: stretch;
   flex-direction: column;
   justify-content: space-between;
-  min-height: ${({ fullHeight }) => fullHeight && '100vh'};
-  min-height: ${({ halfHeight }) => halfHeight && '50vh'};
+  min-height: ${({ fullHeight }) => fullHeight && "100vh"};
+  min-height: ${({ halfHeight }) => halfHeight && "50vh"};
 
-  ${({ color, bold, theme }) => {
+  ${({ color, bold, theme }: Props) => {
     const bg = theme.colors[color];
     const textColor = colorInvert(bg);
     if (bold) {
@@ -56,7 +67,7 @@ export const Hero = styled.div`
   ${({ medium }) =>
     medium &&
     css`
-      ${media('tablet')} {
+      ${media("tablet")} {
         ${Body} {
           padding-bottom: 9rem;
           padding-top: 9rem;
@@ -67,7 +78,7 @@ export const Hero = styled.div`
   ${({ large }) =>
     large &&
     css`
-      ${media('tablet')} {
+      ${media("tablet")} {
         ${Body} {
           padding-bottom: 18rem;
           padding-top: 18rem;
@@ -75,14 +86,3 @@ export const Hero = styled.div`
       }
     `}
 `;
-
-Hero.propTypes = {
-  fullHeight: PropTypes.bool,
-  large: PropTypes.bool,
-  medium: PropTypes.bool,
-  small: PropTypes.bool,
-  color: PropTypes.string,
-  bold: PropTypes.bool
-};
-
-Hero.Body = Body;

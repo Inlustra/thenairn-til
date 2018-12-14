@@ -1,15 +1,11 @@
-import { theme as Box } from './elements/Box';
-import { theme as Text } from './elements/Text';
-import { theme as Icon } from './elements/Icon';
+import { em, stripUnit, hsl } from "polished";
 
-import { theme as Columns } from './layout/Columns';
-import { em, stripUnit, hsl } from 'polished';
-export const px = number => number + 'px';
-export const rem = number => number + 'rem';
+export const px = (number: number) => number + "px";
+export const rem = (number: number) => number + "rem";
 
 const colors = {
   white: hsl(0, 0, 1),
-  primary: hsl(171, 1, 0.4, 1),
+  primary: hsl(171, 1, 0.4),
   info: hsl(204, 0.86, 0.53),
   success: hsl(141, 0.71, 48),
   warning: hsl(48, 1, 0.67),
@@ -28,18 +24,20 @@ const colors = {
   whiteBis: hsl(0, 0, 0.98)
 };
 
-const gap = px(64);
+export type Color = keyof typeof colors;
+
+const gap = 64;
 
 const breakpoints = {
   tablet: px(769),
-  desktop: px(960 + 2 * stripUnit(gap)),
-  widescreen: px(1152 + 2 * stripUnit(gap)),
-  fullhd: px(1344 + 2 * stripUnit(gap))
+  desktop: px(960 + 2 * gap),
+  widescreen: px(1152 + 2 * gap),
+  fullhd: px(1344 + 2 * gap)
 };
 
 const media = {
   mobile: `@media screen and (max-width: ${em(
-    stripUnit(breakpoints.tablet) - 1
+    (stripUnit(breakpoints.tablet) as number) - 1
   )})`,
   tablet: `@media screen and (min-width: ${em(breakpoints.tablet)})`,
   desktop: `@media screen and (min-width: ${em(breakpoints.desktop)})`,
@@ -47,7 +45,9 @@ const media = {
   fullhd: `@media screen and (min-width: ${em(breakpoints.fullhd)})`
 };
 
-export const theme = {
+export type Breakpoint = keyof typeof media;
+
+export const baseTheme = {
   // Defaults
   defaultFontSize: px(16),
   defaultFontWeight: 400,
@@ -60,13 +60,9 @@ export const theme = {
   colors,
 
   // Responsiveness
-  gap,
+  gap: px(gap),
   breakpoints,
-  media,
-
-  // Components
-  Columns,
-  Box,
-  Text,
-  Icon
+  media
 };
+
+export type BaseTheme = typeof baseTheme;

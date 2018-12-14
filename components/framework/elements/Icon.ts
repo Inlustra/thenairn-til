@@ -1,15 +1,27 @@
 import styled, { css } from "styled-components";
+import { BaseTheme } from "../base";
 
 export const theme = {
-  sizes: {
-    small: "1rem",
-    medium: "2rem",
-    large: "3rem",
-    default: "1.5rem"
+  Icon: {
+    sizes: {
+      small: "1rem",
+      medium: "2rem",
+      large: "3rem",
+      default: "1.5rem"
+    }
   }
 };
 
-const getSize = ({ size, theme }) => {
+
+export type Theme = typeof theme & BaseTheme;
+export type IconSize = keyof Theme["Icon"]["sizes"];
+
+export interface Props {
+  size?: IconSize;
+  theme: Theme;
+}
+
+const getSize = ({ size, theme }: Props) => {
   switch (typeof size) {
     case "string":
       return theme.Icon.sizes[size];
@@ -18,7 +30,7 @@ const getSize = ({ size, theme }) => {
   }
 };
 
-export const Icon = styled.span`
+export const Icon = styled.span<Props>`
   align-items: center;
   display: inline-flex;
   justify-content: center;
