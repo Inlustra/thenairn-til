@@ -1,13 +1,12 @@
 import React from "react";
-import { Box } from "../framework/elements/Box";
 // @ts-ignore
-
 import { PrismAsyncLight as SyntaxHighlighter } from "react-syntax-highlighter";
 import { xonokai } from "react-syntax-highlighter/dist/styles/prism";
 import styled, { css } from "styled-components";
-import { Columns, Column } from "../framework/layout/Columns";
-import { Text } from "../framework/elements/Text";
+import { Box } from "../framework/elements/Box";
 import { Icon } from "../framework/elements/Icon";
+import { Text } from "../framework/elements/Text";
+import { Column, Columns } from "../framework/layout/Columns";
 
 export const TilText = styled(Box)`
   border-radius: 6px 6px 0 0;
@@ -66,31 +65,52 @@ export const TilConcealIconContainer = styled.div`
 `;
 
 export interface Props {
+  left?: React.ReactNode;
+  link?: string;
   title: string;
   language: string;
   code: string;
   icons?: string[];
   expanded?: boolean;
+  onClickMedia?: () => void;
 }
 
-export const Til = ({ title, language, code, icons = [], expanded }: Props) => {
+export const Til = ({
+  link,
+  left,
+  title,
+  language,
+  code,
+  icons = [],
+  expanded,
+  onClickMedia
+}: Props) => {
   return (
     <article>
       <TilText>
         <Columns vCentered mobile>
           <Column narrow size={2}>
             <Text size={4} color="greyLighter" centered>
-              TIL
+              {left || "TIL"}
             </Text>
           </Column>
           <Column>
-            <Text weight="semibold">{title}</Text>
+            {link ? (
+              <Text weight="semibold">
+                <a style={{
+                  color: 'inherit',
+                  textDecoration: 'none'
+                }} href={link}>{title}</a>
+              </Text>
+            ) : (
+              <Text weight="semibold">{title}</Text>
+            )}
           </Column>
         </Columns>
       </TilText>
-      <TilMedia expanded={expanded}>
+      <TilMedia expanded={expanded} onClick={onClickMedia}>
         <SyntaxHighlighter
-          language={language}
+          language={language.toLowerCase()}
           style={xonokai}
           PreTag={TilCode}
           children={code}
