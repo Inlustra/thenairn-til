@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "next",
-    "build": "BUNDLE_ANALYZE=both next build",
+    "build": "next build",
     "start": "next start"
   },
   "repository": {
@@ -40,7 +40,6 @@
     "@types/react": "^16.8.10",
     "@types/react-syntax-highlighter": "^10.1.0",
     "@types/styled-components": "^4.1.12",
-    "@zeit/next-bundle-analyzer": "^0.1.2",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-config-react-app": "^3.0.8",
