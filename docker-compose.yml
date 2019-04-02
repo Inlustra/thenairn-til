@@ -1,0 +1,15 @@
+version: "3.5"
+
+services:
+  homepage:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    container_name: homepage
+    ports:
+      - "3000:3000"
+
+networks:
+  default:
+    external:
+      name: homepage
