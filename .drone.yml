@@ -16,11 +16,7 @@ steps:
       - name: dockersock
         path: /var/run/docker.sock
 
-
 volumes:
   - name: dockersock
     host:
       path: /var/run/docker.sock
-  - name: drone_env
-    host:
-      path: /home/data/config/drone/.env
