@@ -46,7 +46,9 @@ const GistTil = ({
         )
         .map(file => file.language)
     )
-  ].filter(language => !!language);
+  ]
+    .filter(language => !!language)
+    .map(language => language.toLowerCase());
 
   if (!til) return null;
   return (
