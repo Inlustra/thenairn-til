@@ -1,5 +1,5 @@
 import App, { Container } from "next/app";
-import React, { Fragment } from "react";
+import React from "react";
 import { ThemeProvider, defaultTheme } from "../components/framework/theme";
 import GlobalStyles from "../components/framework/globals";
 

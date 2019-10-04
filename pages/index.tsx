@@ -5,15 +5,6 @@ import { Container } from "../components/framework/layout/Container";
 import { Body, Hero } from "../components/framework/layout/Hero";
 import Gists from "../components/Gists";
 
-const golangExample = `func sum(nums ...int) {
-  fmt.Print(nums, " ")
-  total := 0
-  for _, num := range nums {
-      total += num
-  }
-  fmt.Println(total)
-}`;
-
 export default () => (
   <Hero fullHeight bold color="danger">
     <Body>
