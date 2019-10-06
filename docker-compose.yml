@@ -27,7 +27,7 @@ services:
     environment:
       url: https://ghost.thenairn.com
       database__client: mysql
-      database__connection__host: db
+      database__connection__host: ghost_db
       database__connection__user: root
       database__connection__password: ${GHOST_DB_PASSWORD}
       database__connection__database: ghost
