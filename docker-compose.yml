@@ -1,13 +1,47 @@
 version: "3.5"
 
 services:
-  homepage:
+  ghost_frontend:
     build:
       context: ./
       dockerfile: ./Dockerfile
-    container_name: homepage
+    environment:
+      BASE_URL: https://ghost.thenairn.com
+    container_name: ghost_frontend
     ports:
       - "3000:3000"
+
+  ghost_db:
+    image: mysql:8.0.17
+    container_name: ghost_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${GHOST_DB_PASSWORD}
+    volumes:
+      - /opt/ghost_mysql:/var/lib/mysql
+
+  ghost_backend:
+    container_name: ghost_backend
+    image: ghost:latest
+    restart: always
+    depends_on:
+      - ghost_db
+    environment:
+      url: https://ghost.thenairn.com
+      database__client: mysql
+      database__connection__host: db
+      database__connection__user: root
+      database__connection__password: ${GHOST_DB_PASSWORD}
+      database__connection__database: ghost
+    volumes:
+      - /opt/ghost_content:/var/lib/ghost/content
+
+  framework_storybook:
+    container_name: framework_storybook
+    build:
+      context: ./
+      dockerfile: ./storybook.Dockerfile
+    restart: always
 
 networks:
   default:

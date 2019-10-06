@@ -10,6 +10,9 @@ trigger:
 steps:
   - name: deploy
     image: docker/compose:1.23.2
+    environment:
+      GHOST_DB_PASSWORD:
+        from_secret: GHOST_DB_PASSWORD
     commands:
       - COMPOSE_PROJECT_NAME=homepage docker-compose up -d --build
     volumes:
