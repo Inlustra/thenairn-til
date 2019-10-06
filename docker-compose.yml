@@ -10,13 +10,13 @@ services:
     container_name: ghost_frontend
 
   ghost_db:
-    image: mysql:8.0.17
+    image: mysql:5.7
     container_name: ghost_db
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${GHOST_DB_PASSWORD}
     volumes:
-      - ${BASE_DIR}/ghost_mysql:/var/lib/mysql
+      - ${BASE_DIR}/ghost_db/mysql:/var/lib/mysql
 
   ghost_backend:
     container_name: ghost_backend
