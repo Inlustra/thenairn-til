@@ -8,8 +8,6 @@ services:
     environment:
       BASE_URL: https://ghost.thenairn.com
     container_name: ghost_frontend
-    ports:
-      - "3000:3000"
 
   ghost_db:
     image: mysql:8.0.17
