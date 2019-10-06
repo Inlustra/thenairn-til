@@ -5,8 +5,6 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
-    environment:
-      BASE_URL: https://ghost.thenairn.com
     container_name: ghost_frontend
 
   ghost_db:
@@ -27,7 +25,7 @@ services:
     depends_on:
       - ghost_db
     environment:
-      url: https://ghost.thenairn.com
+      url: https://thenairn.com
       database__client: mysql
       database__connection__host: ghost_db
       database__connection__user: root
