@@ -16,7 +16,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${GHOST_DB_PASSWORD}
     volumes:
-      - /opt/ghost_mysql:/var/lib/mysql
+      - ${BASE_DIR}/ghost_mysql:/var/lib/mysql
 
   ghost_backend:
     container_name: ghost_backend
@@ -34,7 +34,7 @@ services:
       database__connection__password: ${GHOST_DB_PASSWORD}
       database__connection__database: ghost
     volumes:
-      - /opt/ghost_content:/var/lib/ghost/content
+      - ${BASE_DIR}/ghost_content:/var/lib/ghost/content
 
   framework_storybook:
     container_name: framework_storybook
