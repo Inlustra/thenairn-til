@@ -7,6 +7,7 @@ export const theme = {
       small: "1rem",
       medium: "2rem",
       large: "3rem",
+      xlarge: "4rem",
       default: "1.5rem"
     }
   }

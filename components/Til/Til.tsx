@@ -1,7 +1,7 @@
 import React from "react";
 // @ts-ignore
 import { PrismAsyncLight as SyntaxHighlighter } from "react-syntax-highlighter";
-import xonokai from "react-syntax-highlighter/dist/esm/styles/prism/xonokai";
+import xonokai from "react-syntax-highlighter/dist/cjs/styles/prism/xonokai";
 import styled, { css } from "styled-components";
 import { Box } from "../framework/elements/Box";
 import { Icon } from "../framework/elements/Icon";

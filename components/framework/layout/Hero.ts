@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { media, colorInvert } from "../utils";
+import { media, colorInvert, mediaDefault } from "../utils";
 import { darken, lighten, saturate, adjustHue } from "polished";
 import { BaseTheme, Color } from "../base";
 
@@ -20,7 +20,8 @@ export interface Props {
   theme: BaseTheme;
   fullHeight?: boolean;
   halfHeight?: boolean;
-  color: Color;
+  withNavbar?: boolean;
+  color?: Color;
   bold?: boolean;
   small?: boolean;
   medium?: boolean;
@@ -32,11 +33,37 @@ export const Hero = styled.div<Props>`
   align-items: stretch;
   flex-direction: column;
   justify-content: space-between;
-  min-height: ${({ fullHeight }) => fullHeight && "100vh"};
-  min-height: ${({ halfHeight }) => halfHeight && "50vh"};
+
+  ${({ fullHeight, withNavbar, theme: { Navbar } }) =>
+    fullHeight &&
+    (withNavbar
+      ? mediaDefault(
+          Navbar.height,
+          height =>
+            css`
+              min-height: calc(100vh - ${height});
+            `
+        )
+      : css`
+          min-height: 100vh;
+        `)}
+
+  ${({ halfHeight, withNavbar, theme: { Navbar } }) =>
+    halfHeight &&
+    (withNavbar
+      ? mediaDefault(
+          Navbar.height,
+          height =>
+            css`
+              min-height: calc(50vh - ${height});
+            `
+        )
+      : css`
+          min-height: 50vh;
+        `)}
 
   ${({ color, bold, theme }: Props) => {
-    const bg = theme.colors[color];
+    const bg = color ? theme.colors[color] || color : theme.colors["primary"];
     const textColor = colorInvert(bg);
     if (bold) {
       const colorTopLeft = darken(0.1, saturate(0.1, adjustHue(-10, bg)));
@@ -66,23 +93,25 @@ export const Hero = styled.div<Props>`
 
   ${({ medium }) =>
     medium &&
-    css`
-      ${media("tablet")} {
+    media(
+      "tablet",
+      css`
         ${Body} {
           padding-bottom: 9rem;
           padding-top: 9rem;
         }
-      }
-    `}
+      `
+    )}
 
-  ${({ large }) =>
-    large &&
+${({ large }) =>
+  large &&
+  media(
+    "tablet",
     css`
-      ${media("tablet")} {
-        ${Body} {
-          padding-bottom: 18rem;
-          padding-top: 18rem;
-        }
+      ${Body} {
+        padding-bottom: 18rem;
+        padding-top: 18rem;
       }
-    `}
+    `
+  )}
 `;

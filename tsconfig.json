@@ -23,6 +23,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
+  "typeRoots": ["./typings"],
+
   "exclude": [
     "node_modules"
   ],

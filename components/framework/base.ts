@@ -1,4 +1,4 @@
-import { em, stripUnit, hsl } from "polished";
+import { em, hsl } from "polished";
 
 export const px = (number: number) => number + "px";
 export const rem = (number: number) => number + "rem";
@@ -7,7 +7,7 @@ const colors = {
   white: hsl(0, 0, 1),
   primary: hsl(171, 1, 0.4),
   info: hsl(204, 0.86, 0.53),
-  success: hsl(141, 0.71, 48),
+  success: hsl(141, 0.71, 0.48),
   warning: hsl(48, 1, 0.67),
   danger: hsl(348, 1, 0.61),
   black: hsl(0, 0, 0.04),
@@ -29,25 +29,27 @@ export type Color = keyof typeof colors;
 const gap = 64;
 
 const breakpoints = {
-  tablet: px(769),
+  tablet: px(600),
   desktop: px(960 + 2 * gap),
   widescreen: px(1152 + 2 * gap),
   fullhd: px(1344 + 2 * gap)
 };
 
+export type Breakpoint =
+  | "mobile"
+  | "tablet"
+  | "desktop"
+  | "widescreen"
+  | "fullhd";
+
 const media = {
-  mobile: `@media screen and (max-width: ${em(
-    (stripUnit(breakpoints.tablet) as number) - 1
-  )})`,
   tablet: `@media screen and (min-width: ${em(breakpoints.tablet)})`,
   desktop: `@media screen and (min-width: ${em(breakpoints.desktop)})`,
   widescreen: `@media screen and (min-width: ${em(breakpoints.widescreen)})`,
   fullhd: `@media screen and (min-width: ${em(breakpoints.fullhd)})`
 };
 
-export type Breakpoint = keyof typeof media;
-
-export const baseTheme = {
+export const baseTheme: BaseTheme = {
   // Defaults
   defaultFontSize: px(16),
   defaultFontWeight: 400,
@@ -65,4 +67,19 @@ export const baseTheme = {
   media
 };
 
-export type BaseTheme = typeof baseTheme;
+export type BaseTheme = {
+  // Defaults
+  defaultFontSize: string;
+  defaultFontWeight: number;
+  defaultLineHeight: number;
+  defaultFontFamily: string;
+  defaultBackgroundColor: string;
+  defaultTextColor: string;
+  // Colors
+  colors: { [key: string]: string };
+
+  // Responsiveness
+  gap: string;
+  breakpoints: typeof breakpoints;
+  media: typeof media;
+};

@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "storybook": "start-storybook -p 6007"
   },
   "repository": {
     "type": "git",
@@ -20,12 +21,15 @@
   },
   "homepage": "https://github.com/Inlustra/thenairn-til#readme",
   "dependencies": {
-    "@octokit/rest": "^16.30.2",
+    "@octokit/rest": "^16.31.0",
+    "@storybook/react": "^5.2.1",
     "@zeit/next-sass": "^1.0.1",
     "babel-plugin-styled-components": "^1.10.6",
+    "lodash": "^4.17.15",
     "next": "^9.0.7",
     "next-compose-plugins": "^2.2.0",
     "next-images": "^1.2.0",
+    "next-transpile-modules": "^2.3.1",
     "polished": "^3.4.1",
     "prop-types": "^15.7.2",
     "react": "^16.10.2",
@@ -34,12 +38,15 @@
     "styled-components": "^4.4.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.141",
     "@types/next": "^8.0.6",
     "@types/prop-types": "^15.7.3",
     "@types/react": "^16.9.5",
     "@types/react-syntax-highlighter": "^11.0.1",
     "@types/styled-components": "^4.1.19",
     "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
+    "babel-preset-react-app": "^9.0.2",
     "eslint": "^6.5.1",
     "eslint-config-react-app": "^5.0.2",
     "eslint-plugin-flowtype": "^3.4.2",

@@ -87,16 +87,18 @@ export const Columns = styled.div<ColumnsProps>`
       
     ${({ fromSize }: ColumnsProps) =>
       fromSize
-        ? css`
-            ${media(fromSize)} {
+        ? media(
+            fromSize,
+            css`
               display: flex;
-            }
-          `
-        : css`
-            ${media("tablet")} {
+            `
+          )
+        : media(
+            "tablet",
+            css`
               display: flex;
-            }
-          `}
+            `
+          )}
 `;
 
 export type ColumnSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
@@ -113,6 +115,7 @@ export const Column = styled.div<ColumnProps>`
   flex-grow: 1;
   flex-shrink: 1;
   padding: ${({ theme }: ColumnProps) => theme.Columns.gap};
+  position: relative;
 
   ${({ size }: ColumnProps) => {
     switch (typeof size) {
@@ -122,14 +125,14 @@ export const Column = styled.div<ColumnProps>`
           width: ${toPercentage(size / 12)};
         `;
       case "object":
-        return (Object.keys(size) as Breakpoint[]).map(
-          mediaSize =>
+        return (Object.keys(size) as Breakpoint[]).map(mediaSize =>
+          media(
+            mediaSize,
             css`
-              ${media(mediaSize)} {
-                flex: none;
-                width: ${toPercentage((size[mediaSize] as ColumnSize) / 12)};
-              }
+              flex: none;
+              width: ${toPercentage((size[mediaSize] as ColumnSize) / 12)};
             `
+          )
         );
       default:
         return "";
@@ -146,13 +149,13 @@ export const Column = styled.div<ColumnProps>`
           `
         );
       case "object":
-        return (Object.keys(narrow) as Breakpoint[]).map(
-          mediaSize =>
+        return (Object.keys(narrow) as Breakpoint[]).map(mediaSize =>
+          media(
+            mediaSize,
             css`
-              ${media(mediaSize)} {
-                flex: none;
-              }
+              flex: none;
             `
+          )
         );
       default:
         return "";

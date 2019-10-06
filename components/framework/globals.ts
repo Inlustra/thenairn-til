@@ -17,7 +17,7 @@ const GlobalStyles = (createGlobalStyle as (
   ...interpolations: Array<Interpolation<Props>>
 ) => GlobalStyleComponent<Props, BaseTheme>)`
   html {
-    background-color: ${({ theme }) => theme.defaultBackgroundColor};
+    background-color: ${({ theme }) => console.error(theme) as any || theme.defaultBackgroundColor};
     font-size: ${({ theme }) => theme.defaultFontSize};
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
