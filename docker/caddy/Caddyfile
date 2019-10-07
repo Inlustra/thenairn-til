@@ -11,7 +11,8 @@
         transparent
     }    
 
-    proxy /storybook storybook:80/ {
+    proxy /storybook storybook:80 {
+		without /storybook
         transparent
     }
 }
