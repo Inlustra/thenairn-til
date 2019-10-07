@@ -43,9 +43,9 @@ services:
     build:
       context: docker/caddy
     links:
-      - ghost_frontend
-      - ghost_backend
-      - framework_storybook
+      - nextjs
+      - ghost
+      - storybook
     volumes:
       - ${BASE_DIR}/caddy:/root/.caddy
     restart: unless-stopped

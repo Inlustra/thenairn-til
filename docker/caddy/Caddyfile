@@ -3,11 +3,11 @@
     transparent
     }
 
-    proxy /content ghost_backend:2368 {
+    proxy /content ghost:2368 {
         transparent
     }    
 
-    proxy /ghost ghost_backend:2368 {
+    proxy /ghost ghost:2368 {
         transparent
     }    
 
