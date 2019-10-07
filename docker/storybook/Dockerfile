@@ -7,7 +7,7 @@ ENV PORT 3000
 EXPOSE 3000
 
 WORKDIR /opt/app
-COPY ../.. /opt/app
+COPY . /opt/app
 
 RUN npm --production=false install && npm run storybook:build
 

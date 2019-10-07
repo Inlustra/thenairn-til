@@ -4,7 +4,8 @@ services:
   nextjs:
     container_name: nextjs
     build:
-      context: docker/nextjs
+      context: ./
+      dockerfile: docker/nextjs/Dockerfile
 
   ghost_db:
     image: mysql:5.7
@@ -35,7 +36,8 @@ services:
   storybook:
     container_name: storybook
     build:
-      context: docker/storybook
+      context: ./
+      dockerfile: docker/storybook/Dockerfile
     restart: always
   
   homepage:
