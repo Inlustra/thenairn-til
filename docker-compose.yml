@@ -44,6 +44,7 @@ services:
     container_name: homepage
     build:
       context: ./
+      dockerfile: ./caddy.Dockerfile
     links:
       - ghost_frontend
       - ghost_backend
