@@ -1,5 +1,5 @@
 :80 {
-    proxy / ghost_frontend:3000 {
+    proxy / nextjs:3000 {
     transparent
     }
 
@@ -11,7 +11,7 @@
         transparent
     }    
 
-    proxy /storybook framework_storybook:80/ {
+    proxy /storybook storybook:80/ {
         transparent
     }
 }

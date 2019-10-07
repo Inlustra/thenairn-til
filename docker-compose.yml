@@ -1,11 +1,10 @@
 version: "3.5"
 
 services:
-  ghost_frontend:
+  nextjs:
+    container_name: nextjs
     build:
-      context: ./
-      dockerfile: ./frontend.Dockerfile
-    container_name: ghost_frontend
+      context: docker/nextjs
 
   ghost_db:
     image: mysql:5.7
@@ -16,8 +15,8 @@ services:
     volumes:
       - ${BASE_DIR}/ghost_db/mysql:/var/lib/mysql
 
-  ghost_backend:
-    container_name: ghost_backend
+  ghost:
+    container_name: ghost
     image: ghost:latest
     restart: always
     links:
@@ -33,18 +32,16 @@ services:
     volumes:
       - ${BASE_DIR}/ghost_content:/var/lib/ghost/content
 
-  framework_storybook:
-    container_name: framework_storybook
+  storybook:
+    container_name: storybook
     build:
-      context: ./
-      dockerfile: ./storybook.Dockerfile
+      context: docker/storybook
     restart: always
   
   homepage:
     container_name: homepage
     build:
-      context: ./
-      dockerfile: ./caddy.Dockerfile
+      context: docker/caddy
     links:
       - ghost_frontend
       - ghost_backend
