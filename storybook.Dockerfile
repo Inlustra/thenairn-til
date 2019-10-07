@@ -12,4 +12,4 @@ COPY . /opt/app
 RUN npm --production=false install && npm run storybook:build
 
 FROM nginx
-COPY --from=builder /opt/app/.out /var/www/html
+COPY --from=builder /opt/app/.out/ /usr/share/nginx/html

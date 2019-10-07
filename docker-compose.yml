@@ -4,7 +4,7 @@ services:
   ghost_frontend:
     build:
       context: ./
-      dockerfile: ./Dockerfile
+      dockerfile: ./frontend.Dockerfile
     container_name: ghost_frontend
 
   ghost_db:
@@ -25,7 +25,6 @@ services:
     depends_on:
       - ghost_db
     environment:
-      url: https://thenairn.com
       database__client: mysql
       database__connection__host: ghost_db
       database__connection__user: root
@@ -40,6 +39,18 @@ services:
       context: ./
       dockerfile: ./storybook.Dockerfile
     restart: always
+  
+  homepage:
+    container_name: homepage
+    build:
+      context: ./
+    links:
+      - ghost_frontend
+      - ghost_backend
+      - framework_storybook
+    volumes:
+      - ${BASE_DIR}/caddy:/root/.caddy
+    restart: unless-stopped
 
 networks:
   default:
