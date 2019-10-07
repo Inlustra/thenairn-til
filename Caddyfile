@@ -11,7 +11,7 @@
         transparent
     }    
 
-    proxy /storybook framework_storybook:80 {
+    proxy /storybook framework_storybook:80/ {
         transparent
     }
 }
