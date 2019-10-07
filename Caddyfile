@@ -10,9 +10,4 @@
     proxy /ghost ghost:2368 {
         transparent
     }    
-
-    proxy /storybook storybook:80 {
-		without /storybook
-        transparent
-    }
 }

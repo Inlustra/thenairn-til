@@ -8,8 +8,7 @@
     "build": "next build",
     "start": "next start",
     "storybook": "start-storybook -p 6007",
-    "storybook:build": "build-storybook -c .storybook -o storybook"
-
+    "storybook:build": "PUBLIC_PATH=static/storybook build-storybook -c .storybook -o static/storybook"
   },
   "repository": {
     "type": "git",

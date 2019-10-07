@@ -32,13 +32,6 @@ services:
       database__connection__database: ghost
     volumes:
       - ${BASE_DIR}/ghost_content:/var/lib/ghost/content
-
-  storybook:
-    container_name: storybook
-    build:
-      context: ./
-      dockerfile: Dockerfile.storybook
-    restart: always
   
   homepage:
     container_name: homepage
@@ -48,7 +41,6 @@ services:
     links:
       - nextjs
       - ghost
-      - storybook
     volumes:
       - ${BASE_DIR}/caddy:/root/.caddy
     restart: unless-stopped

@@ -1,5 +1,2 @@
-storybook
-.storybook
-*.stories.*
 Caddyfile
 node_modules
