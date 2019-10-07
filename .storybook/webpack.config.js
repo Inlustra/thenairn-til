@@ -4,6 +4,9 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const path = require("path");
 
 module.exports = ({ config, mode }) => {
+  if (!!process.env.PUBLIC_PATH) {
+    storybookBaseConfig.output.publicPath = process.env.PUBLIC_PATH
+  }
   config.module.rules.push({
     test: /\.(ts|tsx)$/,
     loader: require.resolve("babel-loader"),
