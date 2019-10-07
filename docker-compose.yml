@@ -43,7 +43,8 @@ services:
   homepage:
     container_name: homepage
     build:
-      context: docker/caddy
+      context: ./
+      dockerfile: Dockerfile.caddy
     links:
       - nextjs
       - ghost
