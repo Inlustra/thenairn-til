@@ -4,7 +4,7 @@ services:
   nextjs:
     container_name: nextjs
     build:
-      context: ./
+      context: ./packages/frontend/
       dockerfile: Dockerfile.nextjs
 
   ghost_db:
@@ -36,7 +36,7 @@ services:
   homepage:
     container_name: homepage
     build:
-      context: ./
+      context: ./packages/frontend/
       dockerfile: Dockerfile.caddy
     links:
       - nextjs
