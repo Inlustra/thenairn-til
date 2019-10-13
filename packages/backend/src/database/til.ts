@@ -1,7 +1,7 @@
-import mongoose, { Document } from "mongoose";
+import { Schema, Mongoose, Document, Model } from "mongoose";
 import { UserDocument } from "./user";
 
-interface TilDocument extends Document {
+export interface Til {
   title: string;
   code: {
     language: string;
@@ -11,7 +11,11 @@ interface TilDocument extends Document {
   author: UserDocument;
 }
 
-const tilSchema = new mongoose.Schema<TilDocument>({
+export interface TilDocument extends Document, Til {}
+
+export interface TilModel extends Model<TilDocument> {}
+
+const tilSchema = new Schema<TilDocument>({
   title: {
     type: String,
     required: true
@@ -28,11 +32,12 @@ const tilSchema = new mongoose.Schema<TilDocument>({
     required: true
   },
   author: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "user"
   }
 });
 
-const til = mongoose.model("til", tilSchema);
+const til = (mongoose: Mongoose) =>
+  mongoose.model<TilDocument, TilModel>("til", tilSchema);
 
 export default til;

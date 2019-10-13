@@ -1,13 +1,11 @@
-schema: http://localhost:4098/graphql
+schema: "./src/graphql/schemas/*.graphql"
 generates:
-  ./src/types.ts:
-    plugins:
-      - typescript
-  ./src/resolvers/types.ts:
+  ./src/graphql/types.ts:
+    config:
+      mappers:
+        User: ../database/user#UserDocument
+        Til: ../database/til#TilDocument
     plugins:
       - typescript
       - typescript-resolvers
-  ./src/ops.ts:
-    plugins:
-      - typescript
       - typescript-operations

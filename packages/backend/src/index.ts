@@ -1,22 +1,41 @@
 import Koa from "koa";
 import { ApolloServer } from "apollo-server-koa";
-import typeDefs from "./schemas";
+import typeDefs from "./graphql/schema";
+import setupPassport from "./auth";
+import setupDatabase from "./database";
+import user from "./database/user";
 
-// Construct a schema, using GraphQL schema language
+async function startServer() {
+  const environment = await getEnvironment();
+  const db = await setupDatabase(environment.dbHost);
+  const userModel = user(db);
+  const passport = setupPassport(
+    environment.jwtSecretKey,
+    userModel.authUserId
+  );
 
-// Provide resolver functions for your schema fields
-const resolvers = {
-  Query: {
-  }
-};
+  const resolvers = {
+    Query: {}
+  };
 
-const server = new ApolloServer({ typeDefs, resolvers });
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: ({ req }) => {
+      return { user: req.user };
+    }
+  });
 
-const app = new Koa();
-server.applyMiddleware({ app });
-// alternatively you can get a composed middleware from the apollo server
-// app.use(server.getMiddleware());
+  passport.initialize();
 
-app.listen({ port: 4098 }, () =>
-  console.log(`🚀 Server ready at http://localhost:4098${server.graphqlPath}`)
-);
+  const app = new Koa();
+  app.use(passport.session());
+  server.applyMiddleware({ app });
+  app.listen({ port: environment.port }, () =>
+    console.log(
+      `🚀 Server ready at http://localhost:${environment.port}${server.graphqlPath}`
+    )
+  );
+}
+
+startServer();
