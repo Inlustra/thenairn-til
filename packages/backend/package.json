@@ -5,20 +5,30 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node ./dist/index.js",
+    "start:prod": "node ./dist/index.js",
+    "start": "ts-node ./src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@graphql-codegen/typescript-operations": "^1.8.1",
+    "@graphql-codegen/typescript-resolvers": "^1.8.1",
     "apollo-server-koa": "^2.9.5",
+    "bcrypt": "^3.0.6",
     "graphql": "^14.5.8",
+    "graphql-import": "^0.7.1",
     "koa-bodyparser": "^4.2.1",
-    "koa-router": "^7.4.0"
+    "koa-router": "^7.4.0",
+    "mongoose": "^5.7.4"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^1.8.1",
+    "@types/bcrypt": "^3.0.0",
     "@types/koa-bodyparser": "^4.3.0",
     "@types/koa-router": "^7.0.42",
+    "@types/mongoose": "^5.5.20",
+    "ts-node": "^8.4.1",
     "typescript": "^3.6.3"
   }
 }
