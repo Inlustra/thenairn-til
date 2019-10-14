@@ -1,17 +1,6 @@
-input TilCodeInput {
-  language: String!
-  body: String!
-}
-
 type TilCode {
   language: String!
   body: String!
-}
-
-input TilInput {
-  title: String!
-  code: TilCodeInput!
-  tags: [String!]!
 }
 
 type Til {
@@ -27,7 +16,16 @@ extend type Query {
   tils: [Til!]!
 }
 
+input CreateTilCode {
+  language: String!
+  body: String!
+}
+input CreateTil {
+  title: String!
+  code: CreateTilCode!
+  tags: [String!]!
+}
 extend type Mutation {
-  createTil(input: TilInput!): Til!
+  createTil(til: CreateTil!): Til!
   deleteTil(id: ID!): Boolean!
 }

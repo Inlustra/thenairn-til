@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start:prod": "node ./dist/index.js",
-    "start": "ts-node ./src/index.ts",
+    "start": "ts-node -r ./src/dotenv.ts ./src/index.ts",
     "generate": "graphql-codegen",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -30,9 +30,11 @@
   "devDependencies": {
     "@graphql-codegen/cli": "^1.8.1",
     "@types/bcrypt": "^3.0.0",
+    "@types/dotenv": "^6.1.1",
     "@types/koa-bodyparser": "^4.3.0",
     "@types/koa-passport": "^4.0.2",
     "@types/koa-router": "^7.0.42",
+    "@types/lodash": "^4.14.144",
     "@types/mongoose": "^5.5.20",
     "@types/passport-jwt": "^3.0.2",
     "dotenv": "^8.1.0",

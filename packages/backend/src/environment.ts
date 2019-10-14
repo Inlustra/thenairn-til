@@ -1,11 +1,11 @@
-interface Environment {
+export interface Environment {
   port: string;
   jwtSecretKey: string;
   dbHost: string;
 }
 
 const getEnvironment = async (): Promise<Environment> => {
-  const port = process.env.PORt;
+  const port = process.env.PORT;
   if (!port) {
     throw new Error("Environment variable not defined: PORT");
   }
@@ -23,3 +23,5 @@ const getEnvironment = async (): Promise<Environment> => {
     dbHost
   };
 };
+
+export default getEnvironment;

@@ -8,6 +8,5 @@ function readSchema(name: string) {
 export default [
   readSchema("schemas/link.graphql"),
   readSchema("schemas/user.graphql"),
-  readSchema("schemas/auth.graphql"),
-  readSchema("schemas/til.graphql"),
+  readSchema("schemas/til.graphql")
 ];

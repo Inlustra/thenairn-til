@@ -2,14 +2,21 @@ type User {
   id: ID!
   email: String!
   username: String!
-  password: String!
   tils: [Til!]!
 }
 
 extend type Query {
   user(id: ID!): User
+  login(email: String!, password: String!): String!
+  me: User
+}
+
+input Register {
+  email: String!
+  username: String!
+  password: String!
 }
 
 extend type Mutation {
-  createUser(email: String!, username: String!, password: String!): User!
+  register(user: Register!): String!
 }

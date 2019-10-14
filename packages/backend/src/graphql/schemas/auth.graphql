@@ -1,8 +1,0 @@
-extend type Query {
-  me: User
-  login(email: String!, password: String!): String!
-}
-
-extend type Mutation {
-  createUser(email: String!, username: String!, password: String!): User!
-}

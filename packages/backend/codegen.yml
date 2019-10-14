@@ -2,6 +2,7 @@ schema: "./src/graphql/schemas/*.graphql"
 generates:
   ./src/graphql/types.ts:
     config:
+      useIndexSignature: true
       mappers:
         User: ../database/user#UserDocument
         Til: ../database/til#TilDocument

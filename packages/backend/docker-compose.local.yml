@@ -1,0 +1,17 @@
+version: "3.5"
+
+services:
+
+  db:
+    container_name: tilas_db
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_DATABASE: tilas
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: sekritpassword
+    volumes:
+        - ./mongo-init.local.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+

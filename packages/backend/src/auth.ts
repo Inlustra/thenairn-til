@@ -1,4 +1,4 @@
-import { Passport } from "koa-passport";
+import { KoaPassport } from "koa-passport";
 import { ExtractJwt, Strategy } from "passport-jwt";
 
 type Authenticator<T> = (
@@ -9,14 +9,16 @@ type Authenticator<T> = (
 }>;
 
 function setupPassport<T>(secret: string, authenticator: Authenticator<T>) {
-  const passport = new Passport();
+  const passport = new KoaPassport();
+  
   passport.use(
     new Strategy(
       {
         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-        secretOrKey: secret
+        secretOrKey: secret,
       },
       async (jwtPayload, done) => {
+        console.log('jwtPayload')
         if (!jwtPayload.id) {
           done(new Error("Invalid JWT, id not found"));
         }
