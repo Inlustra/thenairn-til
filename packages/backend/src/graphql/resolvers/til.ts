@@ -15,9 +15,7 @@ const resolvers: Resolvers<Context> = {
   },
   Til: {
     author: async parent =>
-      parent.author
-        ? parent.author
-        : (await parent.populate("author").execPopulate()).author,
+      (await parent.populate("author").execPopulate()).author,
     code: parent => parent.code,
     id: parent => parent.id,
     tags: parent => parent.tags,
@@ -25,7 +23,7 @@ const resolvers: Resolvers<Context> = {
   },
   Query: {
     til: async (parent, { id }, context) => await context.tilModel.findById(id),
-    tils: async (parent, _, context) => await context.tilModel.find({})
+    tils: async (parent, p, context) => await context.tilModel.find({})
   },
   Mutation: {
     createTil: async (parent, { til }, { tilModel, user }) => {

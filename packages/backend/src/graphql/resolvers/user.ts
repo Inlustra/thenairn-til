@@ -29,10 +29,7 @@ const resolvers: Resolvers<Context> = {
     username: parent => parent.username,
     email: parent => parent.email,
     id: parent => parent.id,
-    tils: async parent =>
-      !parent.tils
-        ? (await parent.populate("tils").execPopulate()).tils
-        : parent.tils
+    tils: async parent => (await parent.populate("tils").execPopulate()).tils
   },
   Query: {
     user: async (parent, { id }, context) =>
