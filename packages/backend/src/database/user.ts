@@ -9,9 +9,7 @@ export interface User {
   tils: TilDocument[];
 }
 
-export interface UserDocument extends Document, User {
-  validatePassword: (this: UserDocument, password: string) => Promise<boolean>;
-}
+export interface UserDocument extends Document, User {}
 
 export interface UserModel extends Model<UserDocument> {
   findByEmailAndPassword: (
@@ -44,11 +42,6 @@ const userSchema = new Schema<UserDocument>({
   ]
 });
 
-userSchema.methods.validatePassword = async function(password) {
-  const populatedUser = await this.populate("password").execPopulate();
-  return bcrypt.compareSync(password, populatedUser.password);
-};
-
 userSchema.pre<UserDocument>("save", function() {
   if (!this.isModified("password")) {
     return;
@@ -62,11 +55,11 @@ userSchema.static("findByEmailAndPassword", async function(
   email: string,
   password: string
 ): Promise<UserDocument> {
-  const user = await this.findOne({ email });
+  const user = await this.findOne({ email }).select("+password");
   if (!user) {
     throw new Error("User not found");
   }
-  if (!user.validatePassword(password)) {
+  if (!bcrypt.compareSync(password, user.password)) {
     throw new Error("Invalid password");
   }
   return user;

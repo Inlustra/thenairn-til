@@ -18,26 +18,33 @@ async function startServer() {
   const passport = setupPassport(
     environment.jwtSecretKey,
     async (id: string) => {
-      const user = await userModel.findById(id);
-      if (!user) {
-        throw new Error("Invalid user");
-      }
-      return { user };
+      return { user: await userModel.findById(id) };
     }
   );
+  const app = new Koa();
+  app.use(passport.initialize());
+  app.use((ctx, next) =>
+    passport.authenticate(
+      "jwt",
+      { session: false },
+      async (err, user, info, status) => {
+        if (user) {
+          ctx.user = user;
+        }
+        await next();
+      }
+    )(ctx, next)
+  );
+
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: ({ctx}) => {
-      console.log(ctx.req.user, null, 2)
-      return { environment, userModel, tilModel };
+    context: ({ ctx: { user } }) => {
+      return { user, environment, userModel, tilModel };
     }
   });
-
-  const app = new Koa();
-  app.use(passport.initialize());
-  app.use(passport.session());
   server.applyMiddleware({ app });
+
   app.listen({ port: environment.port }, () =>
     console.log(
       `🚀 Server ready at http://localhost:${environment.port}${server.graphqlPath}`

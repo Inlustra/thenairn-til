@@ -18,12 +18,11 @@ function setupPassport<T>(secret: string, authenticator: Authenticator<T>) {
         secretOrKey: secret,
       },
       async (jwtPayload, done) => {
-        console.log('jwtPayload')
-        if (!jwtPayload.id) {
-          done(new Error("Invalid JWT, id not found"));
+        if (!jwtPayload.sub) {
+          done(new Error("Invalid JWT, subject not found"));
         }
         try {
-          const authResult = await authenticator(jwtPayload.id);
+          const authResult = await authenticator(jwtPayload.sub);
           done(undefined, authResult.user, authResult.info);
         } catch (error) {
           done(error);
