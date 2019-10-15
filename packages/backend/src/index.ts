@@ -1,7 +1,7 @@
 import Koa from "koa";
 import { ApolloServer } from "apollo-server-koa";
 import typeDefs from "./graphql/schema";
-import setupPassport from "./auth";
+import { setupPassport, setupTokenGenerator } from "./auth";
 import setupDatabase from "./database";
 import user from "./database/user";
 import til from "./database/til";
@@ -21,13 +21,14 @@ async function startServer() {
       return { user: await userModel.findById(id) };
     }
   );
+  const tokenGenerator = setupTokenGenerator(environment.jwtSecretKey);
   const app = new Koa();
   app.use(passport.initialize());
   app.use((ctx, next) =>
     passport.authenticate(
       "jwt",
       { session: false },
-      async (err, user, info, status) => {
+      async (err: any, user: any, info: any, status: any) => {
         if (user) {
           ctx.user = user;
         }
@@ -40,7 +41,7 @@ async function startServer() {
     typeDefs,
     resolvers,
     context: ({ ctx: { user } }) => {
-      return { user, environment, userModel, tilModel };
+      return { user, environment, userModel, tilModel, tokenGenerator };
     }
   });
   server.applyMiddleware({ app });

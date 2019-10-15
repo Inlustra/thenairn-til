@@ -1,5 +1,6 @@
 import { KoaPassport } from "koa-passport";
 import { ExtractJwt, Strategy } from "passport-jwt";
+import { sign } from "jsonwebtoken";
 
 type Authenticator<T> = (
   id: string
@@ -8,14 +9,14 @@ type Authenticator<T> = (
   info?: any;
 }>;
 
-function setupPassport<T>(secret: string, authenticator: Authenticator<T>) {
+export function setupPassport<T>(secret: string, authenticator: Authenticator<T>) {
   const passport = new KoaPassport();
-  
+
   passport.use(
     new Strategy(
       {
         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-        secretOrKey: secret,
+        secretOrKey: secret
       },
       async (jwtPayload, done) => {
         if (!jwtPayload.sub) {
@@ -33,4 +34,18 @@ function setupPassport<T>(secret: string, authenticator: Authenticator<T>) {
   return passport;
 }
 
-export default setupPassport;
+export function setupTokenGenerator(secret: string) {
+  return (user: { id: string; email: string; signInProvider: string }) => {
+    return sign(
+      {
+        email: user.email,
+        sign_in_provider: "password"
+      },
+      secret,
+      {
+        subject: user.id,
+        expiresIn: "7d"
+      }
+    );
+  };
+}

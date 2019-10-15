@@ -8,20 +8,7 @@ export interface Context {
   user: UserDocument | null;
   userModel: UserModel;
   environment: Environment;
-}
-
-function generateTokenForUser(user: UserDocument, secret: string) {
-  return sign(
-    {
-      email: user.email,
-      sign_in_provider: "password"
-    },
-    secret,
-    {
-      subject: user.id,
-      expiresIn: "7d"
-    }
-  );
+  tokenGenerator: (user: UserDocument) => string;
 }
 
 const resolvers: Resolvers<Context> = {
@@ -35,10 +22,14 @@ const resolvers: Resolvers<Context> = {
     user: async (parent, { id }, context) =>
       await context.userModel.findById(id),
     me: (parent, _, { user }) => user,
-    login: async (parent, { email, password }, { userModel, environment }) => {
+    login: async (
+      parent,
+      { email, password },
+      { userModel, tokenGenerator }
+    ) => {
       try {
         const user = await userModel.findByEmailAndPassword(email, password);
-        return generateTokenForUser(user, environment.jwtSecretKey);
+        return tokenGenerator(user);
       } catch (error) {
         throw new AuthenticationError("Invalid email or password");
       }
@@ -48,7 +39,7 @@ const resolvers: Resolvers<Context> = {
     register: async (
       parent,
       { user },
-      { userModel, environment, user: loggedInUser }
+      { userModel, tokenGenerator, user: loggedInUser }
     ) => {
       if (loggedInUser) {
         throw new UserInputError("Already logged in.");
@@ -56,7 +47,7 @@ const resolvers: Resolvers<Context> = {
       const savedUser = await userModel.create({
         ...user
       });
-      return generateTokenForUser(savedUser, environment.jwtSecretKey);
+      return tokenGenerator(savedUser);
     }
   }
 };
