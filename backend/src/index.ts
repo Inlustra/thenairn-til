@@ -1,6 +1,6 @@
 import Koa from "koa";
 import { ApolloServer } from "apollo-server-koa";
-import typeDefs from "./graphql/schema";
+import typeDefs from "./graphql/schemas";
 import { setupPassport, setupTokenGenerator } from "./auth";
 import setupDatabase from "./database";
 import user from "./database/user";
