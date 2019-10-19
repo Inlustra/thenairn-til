@@ -24,7 +24,7 @@ async function startServer() {
   const tokenGenerator = setupTokenGenerator(environment.jwtSecretKey);
   const app = new Koa();
   app.use(passport.initialize());
-  app.use((ctx, next) =>
+  app.use((ctx: any, next: any) =>
     passport.authenticate(
       "jwt",
       { session: false },
@@ -44,7 +44,7 @@ async function startServer() {
       return { user, environment, userModel, tilModel, tokenGenerator };
     }
   });
-  server.applyMiddleware({ app });
+  server.applyMiddleware({ app, path: "/api/graphql" });
 
   app.listen({ port: environment.port }, () =>
     console.log(

@@ -1,13 +1,12 @@
+import { UserModel, UserDocument } from "../../database/user";
+import { AuthenticationError, UserInputError } from "apollo-server-koa";
+import { Environment } from "../../environment";
 import {
   Resolvers,
   UserResolvers,
   QueryResolvers,
   MutationResolvers
-} from "@tilas/schemas";
-import { UserModel, UserDocument } from "../../database/user";
-import { sign } from "jsonwebtoken";
-import { AuthenticationError, UserInputError } from "apollo-server-koa";
-import { Environment } from "../../environment";
+} from "@generated/graphql";
 
 export interface Context {
   user: UserDocument | null;

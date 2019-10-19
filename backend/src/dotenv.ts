@@ -1,6 +1,6 @@
-import dotenv from "dotenv";
+import { config } from "dotenv";
 
-const result = dotenv.config({
+const result = config({
   debug: true
 });
 

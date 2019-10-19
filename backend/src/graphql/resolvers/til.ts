@@ -1,14 +1,13 @@
-import {
-  Resolvers,
-  TilCodeResolvers,
-  TilCode,
-  TilResolvers,
-  QueryResolvers,
-  MutationResolvers
-} from "../types";
 import { TilModel, TilDocument } from "../../database/til";
 import { UserDocument } from "../../database/user";
 import { AuthenticationError, UserInputError } from "apollo-server-koa";
+import {
+  Resolvers,
+  TilCodeResolvers,
+  TilResolvers,
+  QueryResolvers,
+  MutationResolvers
+} from "@generated/graphql";
 
 export interface Context {
   tilModel: TilModel;
