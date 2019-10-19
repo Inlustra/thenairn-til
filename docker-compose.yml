@@ -31,8 +31,7 @@ services:
   homepage:
     container_name: homepage
     build:
-      context: frontend/
-      dockerfile: Dockerfile.caddy
+      dockerfile: Dockerfile
     links:
       - frontend
       - backend
