@@ -30,8 +30,7 @@ services:
 
   homepage:
     container_name: homepage
-    build:
-      dockerfile: Dockerfile
+    dockerfile: Dockerfile
     links:
       - frontend
       - backend
