@@ -1,0 +1,13 @@
+{
+  "activationEvents": [
+    "onCommand:extension.createTilSelection"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.createTilSelection",
+        "title": "Tilas: Create TIL from selection"
+      }
+    ]
+  }
+}
