@@ -3,11 +3,7 @@
     transparent
     }
 
-    proxy /content ghost:2368 {
-        transparent
-    }    
-
-    proxy /ghost ghost:2368 {
+    proxy /graphql backend {
         transparent
     }    
 }

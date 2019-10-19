@@ -1,46 +1,41 @@
 version: "3.5"
 
 services:
-  nextjs:
-    container_name: nextjs
+  frontend:
+    container_name: tilas_frontend
     build:
-      context: ./packages/frontend/
-      dockerfile: Dockerfile.nextjs
+      context: frontend/
 
-  ghost_db:
-    image: mysql:5.7
-    container_name: ghost_db
+  db:
+    container_name: tilas_db
+    image: mongo
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${GHOST_DB_PASSWORD}
+      MONGO_USER: ${MONGO_USER}
+      MONGO_PASSOWRD: ${MONGO_PASSWORD}
+      MONGO_DB: ${MONGO_DB}
     volumes:
-      - ${BASE_DIR}/ghost_db/mysql:/var/lib/mysql
+      - backend/mongo-init.local.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
 
-  ghost:
-    container_name: ghost
-    image: ghost:latest
-    restart: always
+  backend:
+    container_name: tilas_backend
     links:
-      - ghost_db
-    depends_on:
-      - ghost_db
+      - db
+    build:
+      context: backend/
     environment:
-      database__client: mysql
-      database__connection__host: ghost_db
-      database__connection__user: root
-      database__connection__password: ${GHOST_DB_PASSWORD}
-      database__connection__database: ghost
-    volumes:
-      - ${BASE_DIR}/ghost_content:/var/lib/ghost/content
-  
+      PORT: 80
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      DB_HOST: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@db:27017/${MONGO_DB}
+
   homepage:
     container_name: homepage
     build:
-      context: ./packages/frontend/
+      context: frontend/
       dockerfile: Dockerfile.caddy
     links:
-      - nextjs
-      - ghost
+      - frontend
+      - backend
     volumes:
       - ${BASE_DIR}/caddy:/root/.caddy
     restart: unless-stopped

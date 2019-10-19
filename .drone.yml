@@ -11,8 +11,15 @@ steps:
   - name: deploy
     image: docker/compose:1.23.2
     environment:
-      GHOST_DB_PASSWORD:
-        from_secret: GHOST_DB_PASSWORD
+      MONGO_USER:
+        from_secret: MONGO_USER
+      MONGO_PASSWORD:
+        from_secret: MONGO_PASSWORD
+      MONGO_DB:
+        from_secret: MONGO_DB
+      JWT_SECRET_KEY:
+        from_secret: JWT_SECRET_KEY
+        
     commands:
       - COMPOSE_PROJECT_NAME=homepage docker-compose up -d --build
     volumes:
