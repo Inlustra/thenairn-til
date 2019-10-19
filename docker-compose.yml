@@ -8,8 +8,6 @@ services:
 
   backend:
     container_name: tilas_backend
-    links:
-      - mongo
     build:
       context: backend/
     environment:
