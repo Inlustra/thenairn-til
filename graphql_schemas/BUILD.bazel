@@ -22,7 +22,9 @@ genrule(
         "package.json",
         "tsconfig.json",
     ],
-    outs = ["index.ts"],
+    outs = [
+        "index.ts",
+    ],
     cmd = """
     cat << EOF > codegen.yml
     schema: "schemas/*.graphql"
@@ -34,7 +36,6 @@ genrule(
         plugins:
           - typescript
           - typescript-resolvers
-          - typescript-operations
 EOF
         ./node_modules/.bin/graphql-codegen
     """,
@@ -44,7 +45,7 @@ ts_library(
     name = "compile",
     srcs = [":schema-types"],
     deps = [
-      "@npm//graphql",
+        "@npm//graphql",
     ],
 )
 
@@ -52,5 +53,7 @@ npm_package(
     name = "package",
     srcs = ["package.json"] + glob(["schemas/**"]),
     replacements = {"//internal/": "//"},
-    deps = [":compile"],
+    deps = [
+        ":compile",
+    ],
 )
