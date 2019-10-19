@@ -8,6 +8,10 @@ import til from "./database/til";
 import resolvers from "./graphql/resolvers";
 import getEnvironment from "./environment";
 
+if (process.env.NODE_ENV !== "production") {
+  require("./dotenv");
+}
+
 async function startServer() {
   const environment = await getEnvironment();
   const db = await setupDatabase(environment.dbHost);
@@ -42,7 +46,9 @@ async function startServer() {
     resolvers,
     context: ({ ctx: { user } }) => {
       return { user, environment, userModel, tilModel, tokenGenerator };
-    }
+    },
+    introspection: true, // enables introspection of the schema
+    playground: true // enables the actual playground
   });
   server.applyMiddleware({ app, path: "/api/graphql" });
 
