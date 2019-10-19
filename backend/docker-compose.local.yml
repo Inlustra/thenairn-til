@@ -14,4 +14,3 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: sekritpassword
     volumes:
         - ./mongo-init.local.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
-

@@ -1,0 +1,33 @@
+{
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "Tilas configuration",
+      "properties": {
+        "tilas.url": {
+          "type": "string",
+          "default": null,
+          "description": "Your tilas backend url, e.g: tilas.thenairn.com/graphql"
+        },
+        "tilas.email": {
+          "type": "string",
+          "default": null,
+          "description": "Your Tilas login email"
+        },
+        "tilas.logLevel": {
+          "type": "string",
+          "default": "info",
+          "enum": [
+            "silly",
+            "debug",
+            "verbose",
+            "info",
+            "warn",
+            "error"
+          ],
+          "description": "The priority level of logs that are added to the GoCD output channel in VSCode"
+        }
+      }
+    }
+  }
+}

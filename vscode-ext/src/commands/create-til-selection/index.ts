@@ -1,15 +1,17 @@
-import { commands } from "vscode";
+import { window, commands } from "vscode";
 
-export interface Dependencies {}
-
-function createTilSelection(deps: Dependencies) {
-  return () => {
-    console.log('pagidngsaongisn')
-  };
+function createTilSelection() {
+  const editor = window.activeTextEditor;
+  if (!editor) {
+    return;
+  }
+  if (!editor.selection) {
+    return;
+  }
+  console.log("pagidngsaongisn");
 }
 
-export const register = (deps: Dependencies) =>
-  commands.registerCommand(
-    "extension.createTilSelection",
-    createTilSelection(deps)
+export const register = () =>
+  commands.registerCommand("extension.createTilSelection", () =>
+    createTilSelection()
   );

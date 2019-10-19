@@ -13,7 +13,8 @@ export function mergePackageJson() {
     .src(packageJsonGlobs)
     .pipe(
       merge({
-        fileName: "package.json"
+        fileName: "package.json",
+        concatArrays: true,
       })
     )
     .pipe(gulp.dest(outDir));

@@ -1,0 +1,13 @@
+{
+  "activationEvents": [
+    "onCommand:extension.tilasLogin"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.tilasLogin",
+        "title": "Tilas: Login"
+      }
+    ]
+  }
+}
