@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { Schema, Mongoose, Document, Model } from "mongoose";
 import { TilDocument } from "./til";
 

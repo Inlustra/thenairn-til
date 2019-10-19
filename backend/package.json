@@ -11,8 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "apollo-server-koa": "^2.9.5",
-    "bcrypt": "^3.0.6",
+    "bcryptjs": "^2.4.3",
     "graphql": "^14.5.8",
     "graphql-import": "^0.7.1",
     "jsonwebtoken": "^8.5.1",
@@ -28,7 +29,6 @@
     "@graphql-codegen/cli": "^1.8.1",
     "@graphql-codegen/typescript-operations": "^1.8.1",
     "@graphql-codegen/typescript-resolvers": "^1.8.1",
-    "@types/bcrypt": "^3.0.0",
     "@types/dotenv": "^6.1.1",
     "@types/koa-bodyparser": "^4.3.0",
     "@types/koa-passport": "^4.0.2",
