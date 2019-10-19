@@ -1,0 +1,20 @@
+{
+    "name": "tilas-types",
+    "version": "0.1.0",
+    "private": true,
+    "devDependencies": {
+        "graphql": "^14.5.8",
+        "@graphql-codegen/cli": "^1.8.1",
+        "@graphql-codegen/typescript-operations": "^1.8.1",
+        "@graphql-codegen/typescript-resolvers": "^1.8.1",
+        "@bazel/bazel": "latest",
+        "@bazel/ibazel": "latest",
+        "@bazel/buildifier": "latest",
+        "@bazel/typescript": "latest",
+        "typescript": "~3.4.0"
+    },
+    "scripts": {
+        "build": "bazel build //...",
+        "test": "bazel test //..."
+    }
+}

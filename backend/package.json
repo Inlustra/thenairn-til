@@ -7,14 +7,11 @@
     "build": "bazel build //...",
     "test": "bazel test //...",
     "start:prod": "node ./dist/index.js",
-    "start": "ts-node -r ./src/dotenv.ts ./src/index.ts",
-    "generate": "bazel build //:generate"
+    "start": "ts-node -r ./src/dotenv.ts ./src/index.ts"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@graphql-codegen/typescript-operations": "^1.8.1",
-    "@graphql-codegen/typescript-resolvers": "^1.8.1",
     "apollo-server-koa": "^2.9.5",
     "bcrypt": "^3.0.6",
     "graphql": "^14.5.8",
@@ -28,7 +25,6 @@
     "passport-jwt": "^4.0.0"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^1.8.1",
     "@types/bcrypt": "^3.0.0",
     "@types/dotenv": "^6.1.1",
     "@types/koa-bodyparser": "^4.3.0",
