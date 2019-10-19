@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "graphql-codegen && tsc",
+    "build:tsc": "parcel build src/index.ts --target node",
+    "build:schemas": "graphql-codegen",
+    "build": "npm-run-all build:schemas build:tsc",
     "dev": "ts-node -r ./src/dotenv.ts ./src/index.ts",
     "start": "node ./dist/index.js"
   },
@@ -26,6 +28,7 @@
     "typescript": "^3.6.4"
   },
   "devDependencies": {
+    "parcel-bundler": "^1.12.4",
     "@graphql-codegen/cli": "^1.8.1",
     "@graphql-codegen/typescript-operations": "^1.8.1",
     "@graphql-codegen/typescript-resolvers": "^1.8.1",
