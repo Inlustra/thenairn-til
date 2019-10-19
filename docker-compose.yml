@@ -35,8 +35,6 @@ services:
     links:
       - frontend
       - backend
-    volumes:
-      - ${BASE_DIR}/caddy:/root/.caddy
     restart: unless-stopped
 
 networks:
