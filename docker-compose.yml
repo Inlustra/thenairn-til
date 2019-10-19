@@ -15,7 +15,7 @@ services:
       MONGO_PASSOWRD: ${MONGO_PASSWORD}
       MONGO_DB: ${MONGO_DB}
     volumes:
-      - backend/mongo-init.local.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ./backend/mongo-init.local.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
 
   backend:
     container_name: tilas_backend
