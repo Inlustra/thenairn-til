@@ -6,7 +6,7 @@ import {
   UserResolvers,
   QueryResolvers,
   MutationResolvers
-} from "@generated/graphql";
+} from "../../generated/graphql";
 
 export interface Context {
   user: UserDocument | null;

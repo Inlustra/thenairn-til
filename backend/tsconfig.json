@@ -4,14 +4,10 @@
     "module": "commonjs",
     "lib": ["dom", "es6"],
     "outDir": "dist",
-    "baseUrl": "",
+    "rootDir": "src",
     "removeComments": true,
     "strict": true,
-    "esModuleInterop": true,
-    "paths": {
-      "@generated/*": ["generated/*"]
-    }
+    "esModuleInterop": true
   },
-  "exclude": ["node_modules"],
-  "include": ["src/**/*.ts"]
+  "exclude": ["node_modules"]
 }

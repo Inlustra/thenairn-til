@@ -7,7 +7,7 @@ import {
   TilResolvers,
   QueryResolvers,
   MutationResolvers
-} from "@generated/graphql";
+} from "../../generated/graphql";
 
 export interface Context {
   tilModel: TilModel;
