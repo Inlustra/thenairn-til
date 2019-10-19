@@ -3,7 +3,7 @@ import {
   UserResolvers,
   QueryResolvers,
   MutationResolvers
-} from "../types";
+} from "@tilas/schemas";
 import { UserModel, UserDocument } from "../../database/user";
 import { sign } from "jsonwebtoken";
 import { AuthenticationError, UserInputError } from "apollo-server-koa";
