@@ -5,6 +5,7 @@ import { setupPassport, setupTokenGenerator } from "./auth";
 import setupDatabase from "./database";
 import user from "./database/user";
 import til from "./database/til";
+import tag from "./database/tag";
 import resolvers from "./graphql/resolvers";
 import getEnvironment from "./environment";
 
@@ -18,6 +19,7 @@ async function startServer() {
   console.log("Started DB");
   const userModel = user(db);
   const tilModel = til(db);
+  const tagModel = tag(db);
 
   const passport = setupPassport(
     environment.jwtSecretKey,
@@ -45,7 +47,15 @@ async function startServer() {
     typeDefs,
     resolvers,
     context: ({ ctx: { user } }) => {
-      return { user, environment, userModel, tilModel, tokenGenerator };
+      return {
+        user,
+        environment,
+        userModel,
+        tilModel,
+        tagModel,
+        tokenGenerator,
+        db
+      };
     },
     introspection: true, // enables introspection of the schema
     playground: true // enables the actual playground

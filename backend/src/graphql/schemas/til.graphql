@@ -8,7 +8,7 @@ type Til {
   title: String!
   code: TilCode!
   author: User!
-  tags: [String!]!
+  tags: [Tag!]!
 }
 
 extend type Query {
@@ -20,12 +20,14 @@ input CreateTilCode {
   language: String!
   body: String!
 }
+
 input CreateTil {
   title: String!
   code: CreateTilCode!
-  tags: [String!]!
+  tags: [ID!]
 }
+
 extend type Mutation {
-  createTil(til: CreateTil!): Til!
+  createTil(til: CreateTil!, createTags: [CreateTag!]): Til!
   deleteTil(id: ID!): Boolean!
 }

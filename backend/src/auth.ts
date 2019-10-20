@@ -11,12 +11,11 @@ type Authenticator<T> = (
 
 export function setupPassport<T>(secret: string, authenticator: Authenticator<T>) {
   const passport = new KoaPassport();
-
   passport.use(
     new Strategy(
       {
         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-        secretOrKey: secret
+        secretOrKey: secret,
       },
       async (jwtPayload, done) => {
         if (!jwtPayload.sub) {

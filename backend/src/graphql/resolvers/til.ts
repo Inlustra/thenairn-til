@@ -8,9 +8,11 @@ import {
   QueryResolvers,
   MutationResolvers
 } from "../../generated/graphql";
+import { TagModel } from "../../database/tag";
 
 export interface Context {
   tilModel: TilModel;
+  tagModel: TagModel;
   user: UserDocument | null;
 }
 
@@ -24,7 +26,7 @@ const Til: TilResolvers<Context, TilDocument> = {
     (await parent.populate("author").execPopulate()).author,
   code: parent => parent.code,
   id: parent => parent.id,
-  tags: parent => parent.tags,
+  tags: async parent => (await parent.populate("tags").execPopulate()).tags,
   title: parent => parent.title
 };
 
@@ -34,14 +36,23 @@ const Query: QueryResolvers<Context> = {
 };
 
 const Mutation: MutationResolvers<Context> = {
-  createTil: async (parent, { til }, { tilModel, user }) => {
+  createTil: async (
+    parent,
+    { til, createTags },
+    { tilModel, user, tagModel }
+  ) => {
     if (!user) {
       throw new AuthenticationError("You must be logged in to create a TIL");
     }
+    const createdTags = await Promise.all(
+      (createTags || []).map(createTag => tagModel.create(createTag))
+    );
+    const createTagsIds = createdTags.map(tag => tag.id);
     const savedTil = await tilModel.create({
       ...til,
       code: { ...til.code },
-      author: user.id
+      author: user.id,
+      tags: [...(til.tags || []), ...createTagsIds]
     });
     return savedTil;
   },

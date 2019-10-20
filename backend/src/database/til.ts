@@ -1,5 +1,6 @@
 import { Schema, Mongoose, Document, Model } from "mongoose";
 import { UserDocument } from "./user";
+import { TagDocument } from "./tag";
 
 export interface Til {
   title: string;
@@ -7,11 +8,13 @@ export interface Til {
     language: string;
     body: string;
   };
-  tags: string[];
+  tags: TagDocument[];
   author: UserDocument;
 }
 
-export interface TilDocument extends Document, Til {}
+export interface TilDocument extends Document, Til {
+  populateTags: Promise<Til>
+}
 
 export interface TilModel extends Model<TilDocument> {}
 
@@ -27,10 +30,10 @@ const tilSchema = new Schema<TilDocument>({
     },
     required: true
   },
-  tags: {
-    type: [String],
-    required: true
-  },
+  tags: [{
+    type: Schema.Types.ObjectId,
+    ref: "tag"
+  }],
   author: {
     type: Schema.Types.ObjectId,
     ref: "user"

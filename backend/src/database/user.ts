@@ -34,12 +34,6 @@ const userSchema = new Schema<UserDocument>({
     required: true,
     select: false
   },
-  tils: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "til"
-    }
-  ]
 });
 
 userSchema.pre<UserDocument>("save", function() {
