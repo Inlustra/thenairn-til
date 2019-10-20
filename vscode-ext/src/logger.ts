@@ -39,7 +39,9 @@ export let Logger = winston.createLogger({
 export function initLogger(level: LogLevel) {
   channel = channel || vscode.window.createOutputChannel("Tilas");
   const stream = new VscodeOutputChannelStream(channel);
-  Logger.clear().add(new winston.transports.Stream({ stream }));
+  Logger.clear()
+    .add(new winston.transports.Console())
+    .add(new winston.transports.Stream({ stream }));
   Logger.level = level;
   Logger.log(level, `Initialised logger with level: ${level}`);
 }

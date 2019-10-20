@@ -1,9 +1,13 @@
 import { Configuration } from "../../configuration";
 import * as vscode from "vscode";
 import { first, switchMap, switchMapTo, tap } from "rxjs/operators";
-import { State } from "../../state";
+import { Observable } from "rxjs";
 
-async function login() {
+interface AuthService {
+  login: (email: string, password: string) => Observable<void>;
+}
+
+async function login(authSvc: AuthService) {
   const { email: currentEmail } = await Configuration.all$
     .pipe(first())
     .toPromise();
@@ -22,17 +26,21 @@ async function login() {
     validateInput: password =>
       !password ? "Your password cannot be empty" : undefined
   });
-  if (password && email) {
-    await Configuration.setAccount(email, password)
-      .pipe(
-        switchMapTo(State.isLoggedIn$),
-        first(),
-        tap(console.error)
-      )
+  if (!password || !email) {
+    return;
+  }
+  try {
+    authSvc
+      .login(email, password)
+      .pipe(switchMap(() => Configuration.setAccount(email, password)))
       .toPromise();
+  } catch (error) {
+    vscode.window.showErrorMessage(error);
   }
 }
 
-export const register = () => {
-  return vscode.commands.registerCommand("extension.tilasLogin", () => login());
+export const registerLoginCommand = (authSvc: AuthService) => {
+  return vscode.commands.registerCommand("extension.tilasLogin", () =>
+    login(authSvc)
+  );
 };

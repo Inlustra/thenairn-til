@@ -6,7 +6,7 @@
       "properties": {
         "tilas.url": {
           "type": "string",
-          "default": null,
+          "default": "https://thenairn.com/api/graphql",
           "description": "Your tilas backend url, e.g: tilas.thenairn.com/graphql"
         },
         "tilas.email": {

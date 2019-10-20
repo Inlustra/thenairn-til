@@ -22,7 +22,7 @@
     "watch:tsc": "tsc -watch -p ./",
     "watch:gulp": "gulp watch",
     "watch:documents": "graphql-codegen --watch",
-    "watch": "npm-run-all -p -l watch:documents watch:tsc watch:gulp",
+    "watch": "npm-run-all -p watch:documents watch:tsc watch:gulp",
     "pretest": "yarn run compile",
     "test": "node ./out/test/runTest.js"
   },
@@ -52,6 +52,7 @@
     "apollo-client": "^2.6.4",
     "apollo-link-context": "^1.0.19",
     "apollo-link-http": "^1.5.16",
+    "apollo-link-rxjs": "^1.0.0-alpha.1",
     "cross-fetch": "^3.0.4",
     "graphql": "^14.5.8",
     "keytar": "^5.0.0-beta.3",

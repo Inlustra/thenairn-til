@@ -24,7 +24,7 @@ export enum ConfigurationKeys {
 }
 
 interface TilasConfig {
-  url?: string;
+  url: string;
   token?: string;
   logLevel?: LogLevel;
   email?: string;
@@ -43,14 +43,14 @@ export namespace Configuration {
   );
 
   export const all$: Observable<TilasConfig> = config$.pipe(
+    distinctUntilChanged(),
     shareReplay(1),
-    distinctUntilChanged()
+    tap(console.error)
   );
 
   export const secure$: Observable<
     SecureTilasConfig & TilasConfig
   > = config$.pipe(
-    skipWhile(config => !config.email),
     switchMap(config =>
       from(getPassword(KEYTAR_SERVICE, config.email as string)).pipe(
         catchError(() => of(null)),
@@ -59,7 +59,7 @@ export namespace Configuration {
           password
         }))
       )
-    )
+    ),
   );
 
   function getVSCodeConfig() {
@@ -68,7 +68,7 @@ export namespace Configuration {
     const logLevel = vscodeConfig.get<LogLevel>(LOG_LEVEL);
     const email = vscodeConfig.get<string>(EMAIL);
     return {
-      url: url || "https://localhost:4000/graphql",
+      url: url || "https://thenairn.com/api/graphql",
       logLevel,
       email
     };
