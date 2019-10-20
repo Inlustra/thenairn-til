@@ -21,15 +21,23 @@ import { registerLoginCommand } from "./commands/login";
 import { of } from "rxjs";
 import { Logger, initLogger } from "./logger";
 import { RxjsLink } from "./lib/rxjs-link";
+import TilService from "./services/til";
+import { registerCreateTilSelectionCommand } from "./commands/create-til-selection";
 
 export function activate(context: vscode.ExtensionContext) {
   console.log('Congratulations, your extension "tilas" is now active!');
 
   const apolloClient = initClient();
   const authSvc = new AuthService(apolloClient);
+  const tilSvc = new TilService(apolloClient);
 
   Configuration.all$.subscribe(config => initLogger(config.logLevel || "info"));
+  registerLoginCommand(authSvc);
+  registerCreateTilSelectionCommand(tilSvc);
+  initLogin(authSvc);
+}
 
+function initLogin(authSvc: AuthService) {
   Configuration.secure$
     .pipe(
       first(),
@@ -49,7 +57,6 @@ export function activate(context: vscode.ExtensionContext) {
       },
       complete: () => Logger.info(`Completed initial login`)
     });
-  registerLoginCommand(authSvc);
 }
 
 function initClient() {
