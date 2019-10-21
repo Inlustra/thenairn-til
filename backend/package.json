@@ -7,7 +7,7 @@
     "build:tsc": "parcel build src/index.ts --target node",
     "build:schemas": "graphql-codegen",
     "build": "npm-run-all build:schemas build:tsc",
-    "watch:tsc": "parcel serve src/index.ts --target node",
+    "watch:tsc": "parcel watch src/index.ts --target node",
     "watch:schemas": "graphql-codegen --watch",
     "start:dev": "nodemon --delay 2500ms dist/index.js",
     "dev": "npm-run-all -p -l watch:* start:dev",

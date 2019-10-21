@@ -8,7 +8,9 @@ export const ROOT = './';
 export const SRC_DIRECTORY = 'src';
 export const DIST_DIRECTORY = 'dist';
 export const OUT_DIRECTORY = 'out';
+export const ASSETS_DIRECTORY = 'assets';
 
 export const srcDir = path.relative(ROOT, SRC_DIRECTORY);
 export const distDir = path.relative(ROOT, DIST_DIRECTORY);
 export const outDir = path.relative(ROOT, OUT_DIRECTORY);
+export const assetsDir = path.relative(ROOT, ASSETS_DIRECTORY);

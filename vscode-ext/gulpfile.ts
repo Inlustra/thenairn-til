@@ -3,10 +3,14 @@ import {
   watchMergePackageJson,
   mergePackageJson
 } from "./gulp/merge-package-json.gulp";
+import { copyAssets, watchCopyAssets } from "./gulp/copy-assets.gulp";
+
+export { copyAssets } from "./gulp/copy-assets.gulp";
+
 export {
   mergePackageJson,
   watchMergePackageJson
 } from "./gulp/merge-package-json.gulp";
 
-export const build = gulp.series(mergePackageJson);
-export const watch = gulp.parallel(watchMergePackageJson);
+export const build = gulp.parallel(copyAssets, mergePackageJson);
+export const watch = gulp.parallel(watchMergePackageJson, watchCopyAssets);

@@ -12,6 +12,7 @@ import {
 } from "rxjs/operators";
 import { Logger } from "../../logger";
 import { Tag } from "../../generated/graphql";
+import { Icons } from "../../icons";
 
 function createTilSelection(tilSvc: TilService) {
   const editor = window.activeTextEditor;
@@ -44,24 +45,29 @@ function createTilSelection(tilSvc: TilService) {
 
   const itemsSubscription = availableTags$.subscribe(tags => {
     quickPick.items = [
-      ...quickPick.items.filter(item => !!item.picked), // TODO: Dedupe the picked items
-      ...tags
+      ...quickPick.selectedItems,
+      ...tags.filter(
+        tag =>
+          !quickPick.selectedItems.map(item => item.label).includes(tag.label)
+      )
     ];
   });
 
   const buttonsSubscription = availableTags$
     .pipe(map(tags => tags.length > 0))
     .subscribe(hasTags => {
+      Logger.info("Has tags: " + hasTags);
       if (!hasTags && quickPick.value && !quickPick.busy) {
         quickPick.buttons = [
           {
-            iconPath: ":plus:",
+            iconPath: Icons.addCircle(),
             tooltip: "Create Tag"
           }
         ];
       } else {
         quickPick.buttons = [];
       }
+      Logger.info(quickPick.buttons);
     });
 
   quickPick.onDidAccept(console.error);
