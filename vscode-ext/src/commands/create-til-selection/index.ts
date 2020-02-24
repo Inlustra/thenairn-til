@@ -1,20 +1,20 @@
+import * as vscode from "vscode";
 import { window, commands } from "vscode";
 import { Subject, BehaviorSubject } from "rxjs";
 import TilService from "../../services/til";
-import {
-  switchMap,
-  debounce,
-  debounceTime,
-  skipWhile,
-  elementAt,
-  tap,
-  map
-} from "rxjs/operators";
+import { switchMap, debounceTime, skipWhile, tap, map } from "rxjs/operators";
 import { Logger } from "../../logger";
 import { Tag } from "../../generated/graphql";
-import { Icons } from "../../icons";
+import { addCircleIcon } from "../../icons";
+import { showCreateTilFull } from "../../gui/webview/create-til-full";
 
 function createTilSelection(tilSvc: TilService) {
+  try {
+    showCreateTilFull();
+  } catch (error) {
+    console.error(error);
+  }
+
   const editor = window.activeTextEditor;
   if (!editor) {
     return;
@@ -60,7 +60,7 @@ function createTilSelection(tilSvc: TilService) {
       if (!hasTags && quickPick.value && !quickPick.busy) {
         quickPick.buttons = [
           {
-            iconPath: Icons.addCircle(),
+            iconPath: addCircleIcon,
             tooltip: "Create Tag"
           }
         ];

@@ -4,11 +4,11 @@ import * as vscode from "vscode";
 import { Configuration } from "./configuration";
 import ApolloClient from "apollo-client";
 import fetch from "cross-fetch";
+
 import {
   withLatestFrom,
   map,
   first,
-  tap,
   switchMap,
   mapTo
 } from "rxjs/operators";

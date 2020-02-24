@@ -1,23 +1,18 @@
-import { ExtensionContext } from "vscode";
+import darkIcons from "./assets/icons/dark/*.svg";
+import lightIcons from "./assets/icons/light/*.svg";
+import { Uri } from "vscode";
+import path from "path";
 
 export interface Icon {
-  light: string;
-  dark: string;
+  light: Uri;
+  dark: Uri;
 }
 
-export namespace Icons {
-  let context: ExtensionContext;
-
-  export function setContext(ctx: ExtensionContext) {
-    context = ctx;
-  }
-
-  function getIcon(name: string) {
-    return (): Icon => ({
-      light: context.asAbsolutePath("assets/icons/light/" + name),
-      dark: context.asAbsolutePath("assets/icons/dark/" + name)
-    });
-  }
-
-  export let addCircle = getIcon("add_circle.svg");
+function icon(name: string): Icon {
+  return {
+    light: Uri.file(path.join(".", lightIcons[name])),
+    dark: Uri.file(path.join(".", darkIcons[name]))
+  };
 }
+
+export const addCircleIcon = icon("add_circle");
