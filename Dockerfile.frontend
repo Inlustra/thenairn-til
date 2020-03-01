@@ -10,6 +10,7 @@ COPY . /opt/app
 WORKDIR /opt/app
 
 RUN apk --no-cache --virtual build-dependencies add \
+    pkg-config \
     python \
     make \
     g++
