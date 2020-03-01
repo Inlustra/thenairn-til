@@ -9,8 +9,14 @@ EXPOSE 3000
 COPY . /opt/app
 WORKDIR /opt/app
 
-RUN yarn --production=false install \
-  && yarn workspace @devtail/frontend install --production=false \
-  && yarn workspace @devtail/frontend run build
+RUN apk --no-cache --virtual build-dependencies add \
+    python \
+    make \
+    g++
+
+RUN yarn --production=false install
+RUN yarn workspace @devtail/frontend install --production=false
+RUN yarn workspace @devtail/frontend run build
+RUN apk del build-dependencies
 
 CMD [ "yarn", "workspace", "@devtail/frontend", "run" "start" ]
