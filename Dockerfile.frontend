@@ -10,7 +10,7 @@ COPY . /opt/app
 WORKDIR /opt/app
 
 RUN apk --no-cache --virtual build-dependencies add \
-    pkg-config \
+    libsecret-1-dev \
     python \
     make \
     g++
