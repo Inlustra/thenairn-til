@@ -9,6 +9,8 @@ EXPOSE 4098
 COPY . /opt/app
 WORKDIR /opt/app
 
-RUN yarn --production=false install && yarn workspace @devtail/backend run build
+RUN yarn --production=false install \
+  && yarn workspace @devtail/backend install \
+  && yarn workspace @devtail/backend run build
 
-CMD [ "yarn", "start" ]
+CMD [ "yarn", "workspace", "@devtail/backend", "run" "start" ]
