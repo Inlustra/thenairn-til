@@ -20,4 +20,4 @@ RUN yarn workspace @devtail/frontend install --production=false
 RUN yarn workspace @devtail/frontend run build
 RUN apk del build-dependencies
 
-CMD [ "yarn", "workspace", "@devtail/frontend", "run" "start" ]
+CMD [ "yarn", "workspace", "@devtail/frontend", "run", "start" ]

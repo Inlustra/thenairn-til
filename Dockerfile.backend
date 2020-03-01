@@ -20,4 +20,4 @@ RUN yarn workspace @devtail/backend install --production=false
 RUN yarn workspace @devtail/backend run build
 RUN apk del build-dependencies
 
-CMD [ "yarn", "workspace", "@devtail/backend", "run" "start" ]
+CMD [ "yarn", "workspace", "@devtail/backend", "run", "start" ]
