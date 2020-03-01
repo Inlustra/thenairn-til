@@ -9,24 +9,29 @@ import { Input } from "@devtale/ui/elements/Input";
 import { Button, Link } from "@devtale/ui/elements/Button";
 import { Columns, Column } from "@devtale/ui/layout/Columns";
 import { useForm } from "react-hook-form";
-import { useLoginLazyQuery } from "generated/graphql";
+import { useRegisterMutation } from "generated/graphql";
 import NextLink from "next/link";
+import { setToken } from "../lib/cookie-auth";
 
 interface FormValues {
   email: string;
+  username: string;
   password: string;
 }
 
 export default () => {
-  const { register, handleSubmit, errors } = useForm<FormValues>({
-    defaultValues: {
-      email: "",
-      password: ""
+  const { register: registerField, handleSubmit, errors } = useForm<FormValues>(
+    {
+      defaultValues: {
+        email: "",
+        username: "",
+        password: ""
+      }
     }
-  });
+  );
   const [queryError, setQueryError] = useState<React.ReactNode | null>(null);
-  const [login, { loading, data, error }] = useLoginLazyQuery();
-  useEffect(() => console.log(data), [data]);
+
+  const [register, { loading, error }] = useRegisterMutation();
   useEffect(() => {
     if (!error) {
       setQueryError(null);
@@ -36,11 +41,19 @@ export default () => {
       );
     }
   }, [error]);
-  const onSubmit = handleSubmit((variables: FormValues) =>
-    login({
-      variables,
-    })
-  );
+  const onSubmit = handleSubmit(async (values: FormValues) => {
+    try {
+      const { data } = await register({
+        variables: {
+          register: values
+        }
+      });
+      console.log(data?.register);
+      setToken(data?.register);
+    } catch (error) {
+      console.error(error);
+    }
+  });
   return (
     <>
       <Topbar />
@@ -60,17 +73,17 @@ export default () => {
                   <form onSubmit={onSubmit}>
                     <FlexContainer column>
                       <Text size={4} centered weight={"bold"}>
-                        Login
+                        Register
                       </Text>
-                      <NextLink href="/register">
-                        <Link>Register</Link>
+                      <NextLink href="/login">
+                        <Link>Login</Link>
                       </NextLink>
                       <Text weight={"bold"} margin={{ t: "md" }}>
                         Email
                       </Text>
                       <Input
                         name="email"
-                        ref={register({
+                        ref={registerField({
                           required: "Email is required"
                         })}
                         margin={{
@@ -79,6 +92,21 @@ export default () => {
                       />
                       {errors.email && (
                         <Text color="danger">{errors.email.message}</Text>
+                      )}
+                      <Text weight={"bold"} margin={{ t: "md" }}>
+                        Username
+                      </Text>
+                      <Input
+                        name="username"
+                        ref={registerField({
+                          required: "Username is required"
+                        })}
+                        margin={{
+                          t: "sm"
+                        }}
+                      />
+                      {errors.username && (
+                        <Text color="danger">{errors.username.message}</Text>
                       )}
                       <Text
                         weight={"bold"}
@@ -90,7 +118,7 @@ export default () => {
                       </Text>
                       <Input
                         name="password"
-                        ref={register({
+                        ref={registerField({
                           required: "Password is required"
                         })}
                         margin={{

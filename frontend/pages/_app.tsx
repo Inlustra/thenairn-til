@@ -6,6 +6,7 @@ import withApollo, { WithApolloProps } from "next-with-apollo";
 import ApolloClient, { InMemoryCache } from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { ErrorBoundary } from "_components/ErrorBoundary";
+import { authRequest } from "../lib/cookie-auth";
 
 const App = ({
   Component,
@@ -26,13 +27,7 @@ export default withApollo(({ initialState }) => {
   return new ApolloClient({
     uri: "https://thenairn.com/api/graphql",
     cache: new InMemoryCache().restore(initialState || {}),
-    request: operation => {
-      const token = localStorage.getItem("token");
-      operation.setContext({
-        headers: {
-          authorization: token ? `Bearer ${token}` : ""
-        }
-      });
-    }
+    request: authRequest,
+    credentials: "include"
   });
 })(App);

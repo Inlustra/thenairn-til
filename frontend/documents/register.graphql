@@ -1,0 +1,3 @@
+mutation Register($register: Register!) {
+  register(user: $register)
+}

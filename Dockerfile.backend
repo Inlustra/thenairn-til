@@ -7,8 +7,8 @@ ENV PORT 4098
 EXPOSE 4098
 
 COPY . /opt/app
-WORKDIR /opt/app/backend
+WORKDIR /opt/app
 
-RUN npm --production=false install && npm run build
+RUN yarn --production=false install && yarn workspace @devtail/backend run build
 
-CMD [ "npm", "start" ]
+CMD [ "yarn", "start" ]

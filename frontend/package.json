@@ -1,10 +1,10 @@
 {
-  "name": "@tilas/frontend",
+  "name": "@devtail/frontend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "watch": "concurrently 'npm:watch:next' 'npm:watch:schemas'",
+    "watch": "concurrently 'npm:watch:next' 'npm:watch:graphql'",
     "watch:graphql": "yarn workspace @devtail/core run watch:graphql",
     "watch:next": "next",
     "build:graphql": "yarn workspace @devtail/core run build:graphql",
@@ -33,6 +33,7 @@
     "apollo-boost": "^0.4.7",
     "babel-plugin-styled-components": "^1.10.7",
     "graphql": "^14.5.8",
+    "js-cookie": "^2.2.1",
     "lodash": "^4.17.15",
     "next": "^9.2.2",
     "next-compose-plugins": "^2.2.0",
@@ -48,6 +49,7 @@
     "styled-components": "^5.0.1"
   },
   "devDependencies": {
+    "@types/js-cookie": "^2.2.5",
     "@types/lodash": "^4.14.149",
     "@types/next": "^9.0.0",
     "@types/node": "^13.7.7",
