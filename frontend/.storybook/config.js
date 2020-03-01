@@ -1,6 +1,6 @@
 import React from "react";
-import { createTheme } from "../components/framework/theme";
-import GlobalStyles from "../components/framework/globals";
+import { createTheme } from "../framework/theme";
+import GlobalStyles from "../framework/globals";
 import { configure, addDecorator, addParameters } from "@storybook/react";
 import { ThemeProvider } from "styled-components";
 
