@@ -10,7 +10,7 @@ COPY . /opt/app
 WORKDIR /opt/app
 
 RUN yarn --production=false install \
-  && yarn workspace @devtail/backend install \
+  && yarn workspace @devtail/backend install --production=false  \
   && yarn workspace @devtail/backend run build
 
 CMD [ "yarn", "workspace", "@devtail/backend", "run" "start" ]
