@@ -9,6 +9,6 @@ EXPOSE 3000
 WORKDIR /opt/app
 COPY . /opt/app
 
-RUN npm --production=false install && npm run storybook:build && npm run build
+RUN npm --production=false install && npm run build && npm run storybook:build
 
 CMD [ "npm", "start" ]
