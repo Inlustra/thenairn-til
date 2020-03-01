@@ -28,7 +28,7 @@ export default () => {
       password: ""
     }
   });
-  const [queryError, setQueryError] = useState<string | null>(null);
+  const [queryError, setQueryError] = useState<React.ReactNode | null>(null);
   const [login, { loading, data, error }] = useLazyQuery<
     LoginQuery,
     LoginQueryVariables
@@ -38,7 +38,9 @@ export default () => {
     if (!error) {
       setQueryError(null);
     } else {
-      setQueryError(error.name);
+      setQueryError(
+        error.graphQLErrors.map(({ message }) => message).join(", ")
+      );
     }
   }, [error]);
   const onSubmit = handleSubmit((variables: FormValues) =>
@@ -108,10 +110,11 @@ export default () => {
                         </Box>
                       )}
                       <Button
+                        color="primary"
                         loading={loading}
                         type="submit"
                         margin={{
-                          t: "md"
+                          t: "lg"
                         }}
                       >
                         Submit
