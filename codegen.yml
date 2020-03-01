@@ -7,16 +7,15 @@ generates:
     plugins:
       - typescript
       - typescript-resolvers
-  frontend/src/generated/graphql.ts:
+  frontend/generated/graphql.ts:
     documents: "./frontend/**/*.graphql"
     config:
       useIndexSignature: true
       noSchemaStitching: true
       withComponent: false
       withHOC: false
-      withHooks: false
+      withHooks: true
       withResultType: false
-      apolloReactCommonImportFrom: "apollo-boost"
     plugins:
       - typescript
       - typescript-operations
@@ -30,7 +29,6 @@ generates:
       withHOC: false
       withHooks: false
       withResultType: false
-      apolloReactCommonImportFrom: "apollo-boost"
     plugins:
       - typescript
       - typescript-operations

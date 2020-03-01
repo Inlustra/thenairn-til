@@ -58,10 +58,16 @@ async function startServer() {
       };
     },
     introspection: true, // enables introspection of the schema
-    playground: true // enables the actual playground
+    playground: true // enables the actual playground,
   });
-  server.applyMiddleware({ app, path: "/api/graphql" });
-
+  server.applyMiddleware({
+    app,
+    path: "/api/graphql",
+    cors: {
+      credentials: true
+    }
+  });
+  app;
   app.listen({ port: environment.port }, () =>
     console.log(
       `🚀 Server ready at http://localhost:${environment.port}${server.graphqlPath}`
