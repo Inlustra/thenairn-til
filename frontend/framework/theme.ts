@@ -1,7 +1,6 @@
 import * as styledComponents from "styled-components";
 import { ThemedStyledComponentsModule } from "styled-components";
 import { BaseTheme, baseTheme } from "./base";
-import { theme as worldMapTheme } from "./elements/WorldMap";
 import { theme as boxTheme } from "./elements/Box";
 import { theme as iconTheme } from "./elements/Icon";
 import { theme as textTheme } from "./elements/Text";
@@ -34,7 +33,6 @@ export function createTheme<T, B extends DeepPartial<BaseTheme>, E>(
       ...columnsTheme,
       ...buttonTheme,
       ...navbarTheme,
-      ...worldMapTheme,
       // Mixins
       ...controlTheme,
       ...spacingTheme
