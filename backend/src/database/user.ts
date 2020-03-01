@@ -4,6 +4,7 @@ import { TilDocument } from "./til";
 
 export interface User {
   email: string;
+  
   username: string;
   password: string;
   tils: TilDocument[];

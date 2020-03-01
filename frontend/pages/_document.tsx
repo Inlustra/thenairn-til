@@ -1,26 +1,43 @@
-// ./pages/_document.js
 import React from "react";
 import Document, { Head, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from "styled-components";
 
-export default class MyDocument extends Document<{
-  styleTags: React.ReactElement<{}>;
-}> {
-  static getInitialProps({ renderPage }: any) {
+export default class MyDocument extends Document<any> {
+  static async getInitialProps(ctx: any) {
     const sheet = new ServerStyleSheet();
-    const page = renderPage((App: any) => (props: any) =>
-      sheet.collectStyles(<App {...props} />)
-    );
-    const styleTags = sheet.getStyleElement();
-    return { ...page, styleTags };
+    const originalRenderPage = ctx.renderPage;
+
+    try {
+      // wraps the collectStyles provider around our <App />.
+      ctx.renderPage = () =>
+        originalRenderPage({
+          enhanceApp: (App: React.FC<any>) => (props: any) =>
+            sheet.collectStyles(<App {...props} />)
+        });
+
+      // extract the initial props that may be present.
+      const initialProps = await Document.getInitialProps(ctx);
+
+      // returning the original props together with our styled components.
+      return {
+        ...initialProps,
+        styles: (
+          <>
+            {initialProps.styles}
+            {sheet.getStyleElement()}
+          </>
+        )
+      };
+    } finally {
+      sheet.seal();
+    }
   }
 
   render() {
     return (
       <html>
         <Head>
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          {this.props.styleTags}
+          {this.props.styleTags /*rendering the actually stylesheet*/}
         </Head>
         <body>
           <Main />

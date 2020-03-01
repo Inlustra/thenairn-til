@@ -21,7 +21,12 @@
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "paths": {
+      "@devtale/ui/*": ["framework/*"],
+      "_components/*": ["components/*"],
+    }
   },
   "typeRoots": ["./typings"],
 

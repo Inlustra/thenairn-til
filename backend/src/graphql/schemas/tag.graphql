@@ -1,15 +1,15 @@
 type Tag {
-    id: ID
-    label: String!
+  id: ID
+  label: String!
 }
 
 input CreateTag {
-    label: String!
+  label: String!
 }
 
 extend type Query {
-    tag(id: ID, label: String): Tag
-    tags(search: String!): [Tag!]!
+  tag(id: ID, label: String): Tag
+  tags(search: String!): [Tag!]!
 }
 
 extend type Mutation {

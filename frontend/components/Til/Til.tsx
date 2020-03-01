@@ -1,12 +1,11 @@
-import React from "react";
-// @ts-ignore
+import React, { useMemo } from "react";
 import { PrismAsyncLight as SyntaxHighlighter } from "react-syntax-highlighter";
 import xonokai from "react-syntax-highlighter/dist/cjs/styles/prism/xonokai";
 import styled, { css } from "styled-components";
-import { Box } from "../framework/elements/Box";
-import { Icon } from "../framework/elements/Icon";
-import { Text } from "../framework/elements/Text";
-import { Column, Columns } from "../framework/layout/Columns";
+import { Box } from "../../framework/elements/Box";
+import { Icon } from "../../framework/elements/Icon";
+import { Text } from "../../framework/elements/Text";
+import { Column, Columns } from "../../framework/layout/Columns";
 
 export const TilText = styled(Box)`
   border-radius: 6px 6px 0 0;
@@ -75,6 +74,16 @@ export interface Props {
   onClickMedia?: () => void;
 }
 
+function getSupportedLanguage(language: string) {
+  const normalizedLanguage = language.toLowerCase().trim();
+  switch (normalizedLanguage) {
+    case "shell":
+      return "bash";
+    default:
+      return normalizedLanguage;
+  }
+}
+
 export const Til = ({
   link,
   left,
@@ -85,6 +94,10 @@ export const Til = ({
   expanded,
   onClickMedia
 }: Props) => {
+  const supportedLanguage = useMemo(() => getSupportedLanguage(language), [
+    language
+  ]);
+
   return (
     <article>
       <TilText>
@@ -97,10 +110,15 @@ export const Til = ({
           <Column>
             {link ? (
               <Text weight="semibold">
-                <a style={{
-                  color: 'inherit',
-                  textDecoration: 'none'
-                }} href={link}>{title}</a>
+                <a
+                  style={{
+                    color: "inherit",
+                    textDecoration: "none"
+                  }}
+                  href={link}
+                >
+                  {title}
+                </a>
               </Text>
             ) : (
               <Text weight="semibold">{title}</Text>
@@ -110,7 +128,7 @@ export const Til = ({
       </TilText>
       <TilMedia expanded={expanded} onClick={onClickMedia}>
         <SyntaxHighlighter
-          language={language.toLowerCase()}
+          language={supportedLanguage}
           style={xonokai}
           PreTag={TilCode}
           children={code}
