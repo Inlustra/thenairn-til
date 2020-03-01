@@ -20,7 +20,7 @@ type SpacingPosition = "t" | "r" | "b" | "l" | "x" | "y";
 
 type SpacingProp =
   | Partial<
-      { [key in SpacingPosition]: keyof typeof theme["spacing"] | string }
+      { [key in SpacingPosition]: keyof typeof theme["spacing"] }
     >
   | keyof typeof theme["spacing"]
   | string;

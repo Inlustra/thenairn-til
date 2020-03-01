@@ -1,5 +1,10 @@
 import styled from "styled-components";
 import { BaseTheme } from "../base";
+import {
+  spacing,
+  Props as SpacingProps,
+  Theme as SpacingTheme
+} from "../mixins/spacing";
 
 export const theme = {
   Box: {
@@ -10,9 +15,9 @@ export const theme = {
   }
 };
 
-export type Theme = typeof theme & BaseTheme;
+export type Theme = typeof theme & BaseTheme & SpacingTheme;
 
-export interface Props {
+export interface Props extends SpacingProps {
   theme: Theme;
 }
 
@@ -23,4 +28,5 @@ export const Box = styled.div<Props>`
   padding: ${({ theme }: Props) => theme.Box.padding};
   border-radius: ${({ theme }: Props) => theme.Box.radius};
   background-color: ${({ theme }: Props) => theme.Box.backgroundColor};
+  ${spacing}
 `;

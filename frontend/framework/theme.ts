@@ -5,6 +5,7 @@ import { theme as boxTheme } from "./elements/Box";
 import { theme as iconTheme } from "./elements/Icon";
 import { theme as textTheme } from "./elements/Text";
 import { theme as buttonTheme } from "./elements/Button";
+import { theme as inputTheme } from "./elements/Input";
 import { theme as columnsTheme } from "./layout/Columns";
 import { theme as controlTheme } from "./mixins/control";
 import { theme as spacingTheme } from "./mixins/spacing";
@@ -33,6 +34,7 @@ export function createTheme<T, B extends DeepPartial<BaseTheme>, E>(
       ...columnsTheme,
       ...buttonTheme,
       ...navbarTheme,
+      ...inputTheme,
       // Mixins
       ...controlTheme,
       ...spacingTheme

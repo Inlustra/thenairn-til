@@ -43,6 +43,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-hook-form": "^4.10.1",
     "react-syntax-highlighter": "^12.2.1",
     "styled-components": "^5.0.1"
   },

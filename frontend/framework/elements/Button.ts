@@ -3,6 +3,7 @@ import { BaseTheme } from "../base";
 import { darken } from "polished";
 import { control } from "../mixins/control";
 import { colorInvert } from "../utils";
+import { spacing, Props as SpacingProps } from "../mixins/spacing";
 
 export const theme = {
   textSizes: {
@@ -25,9 +26,10 @@ export type Props = {
   glow?: boolean;
   color?: string;
   size?: keyof Theme["textSizes"];
-};
+} & SpacingProps;
 
-export const Button = styled.a<Props>`
+export const Button = styled.button<Props>`
+  ${spacing}
   ${control}
   user-select: none;
   background-color: #fff;
@@ -185,7 +187,7 @@ ${({ loading, theme }) =>
       }
     }
 
-    color: transparent;
+    color: transparent !important;
     :after {
       position: absolute !important;
       animation: spinAround 500ms infinite linear;
@@ -202,3 +204,5 @@ ${({ loading, theme }) =>
   `}
 
 `;
+
+export const Link = Button.withComponent("a");

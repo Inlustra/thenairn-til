@@ -33,7 +33,7 @@ const Query: QueryResolvers<Context> = {
       const user = await userModel.findByEmailAndPassword(email, password);
       return tokenGenerator(user);
     } catch (error) {
-      throw new AuthenticationError("Invalid email or password");
+      throw new UserInputError("Invalid email or password");
     }
   }
 };

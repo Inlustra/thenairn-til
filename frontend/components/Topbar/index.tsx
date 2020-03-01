@@ -1,7 +1,6 @@
 import React from "react";
 import { Navbar, Item, Menu, Content } from "../../framework/components/Navbar";
 import Link from "next/link";
-import { Button } from "../../framework/elements/Button";
 import { useRouter } from "next/router";
 import { Logo } from "./Logo";
 
@@ -29,7 +28,7 @@ export const Topbar = () => (
       </Content>
       <Content position="end">
         <Item as="div">
-          <Button color="danger">Contact</Button>
+          <TopbarLink href="/login">Login</TopbarLink>
         </Item>
       </Content>
     </Menu>
