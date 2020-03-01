@@ -5,12 +5,12 @@
   "main": "index.js",
   "scripts": {
     "build:tsc": "parcel build src/index.ts --target node",
-    "build:schemas": "graphql-codegen",
-    "build": "npm-run-all build:schemas build:tsc",
+    "build:graphql": "yarn workspace @devtail/core run build:graphql",
+    "build": "npm-run-all build:graphql build:tsc",
+    "watch:graphql": "yarn workspace @devtail/core run watch:graphql",
     "watch:tsc": "parcel watch src/index.ts --target node",
-    "watch:schemas": "graphql-codegen --watch",
     "start:dev": "nodemon --delay 2500ms dist/index.js",
-    "dev": "npm-run-all -p -l watch:* start:dev",
+    "watch": "npm-run-all -p -l watch:* start:dev",
     "start": "node ./dist/index.js"
   },
   "author": "",
@@ -31,9 +31,6 @@
     "typescript": "^3.6.4"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^1.8.1",
-    "@graphql-codegen/typescript-operations": "^1.8.1",
-    "@graphql-codegen/typescript-resolvers": "^1.8.1",
     "@types/dotenv": "^6.1.1",
     "@types/koa-bodyparser": "^4.3.0",
     "@types/koa-passport": "^4.0.2",

@@ -1,0 +1,37 @@
+schema: "./backend/**/*.graphql"
+generates:
+  backend/src/generated/graphql.ts:
+    config:
+      useIndexSignature: true
+      noSchemaStitching: true
+    plugins:
+      - typescript
+      - typescript-resolvers
+  frontend/src/generated/graphql.ts:
+    documents: "./frontend/**/*.graphql"
+    config:
+      useIndexSignature: true
+      noSchemaStitching: true
+      withComponent: false
+      withHOC: false
+      withHooks: false
+      withResultType: false
+      apolloReactCommonImportFrom: "apollo-boost"
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+  vscode-ext/src/generated/graphql.ts:
+    documents: "./vscode-ext/**/*.graphql"
+    config:
+      useIndexSignature: true
+      noSchemaStitching: true
+      withComponent: false
+      withHOC: false
+      withHooks: false
+      withResultType: false
+      apolloReactCommonImportFrom: "apollo-boost"
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo

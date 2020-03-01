@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "name": "@devtail/core",
+  "version": "1.0.0",
+  "workspaces": [
+    ".",
+    "backend",
+    "frontend",
+    "vscode-ext"
+  ],
+  "scripts": {
+    "build:graphql": "graphql-codegen",
+    "watch:graphql": "graphql-codegen --watch"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^1.12.2",
+    "@graphql-codegen/typescript-operations": "^1.12.2",
+    "@graphql-codegen/typescript-resolvers": "^1.12.2",
+    "@graphql-codegen/typescript-react-apollo": "^1.12.2"
+  }
+}

@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently 'npm:dev:next' 'npm:dev:schemas'",
-    "dev:next": "next",
-    "dev:schemas": "graphql-codegen --watch",
-    "build": "yarn build:schemas && yarn build:next",
+    "watch": "concurrently 'npm:watch:next' 'npm:watch:schemas'",
+    "watch:graphql": "yarn workspace @devtail/core run watch:graphql",
+    "watch:next": "next",
+    "build:graphql": "yarn workspace @devtail/core run build:graphql",
     "build:next": "next build",
-    "build:schemas": "graphql-codegen",
+    "build": "yarn build:graphql && yarn build:next",
     "start": "next start",
     "storybook": "start-storybook -p 6007",
     "storybook:build": "PUBLIC_PATH=static/storybook build-storybook -c .storybook -o static/storybook"
@@ -48,9 +48,6 @@
     "styled-components": "^5.0.1"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^1.12.2",
-    "@graphql-codegen/typescript-operations": "^1.12.2",
-    "@graphql-codegen/typescript-react-apollo": "^1.12.2",
     "@types/lodash": "^4.14.149",
     "@types/next": "^9.0.0",
     "@types/node": "^13.7.7",
