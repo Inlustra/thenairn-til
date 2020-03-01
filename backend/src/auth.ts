@@ -1,3 +1,4 @@
+import { Context } from "koa";
 import { KoaPassport } from "koa-passport";
 import { ExtractJwt, Strategy } from "passport-jwt";
 import { sign } from "jsonwebtoken";
@@ -9,13 +10,22 @@ type Authenticator<T> = (
   info?: any;
 }>;
 
-export function setupPassport<T>(secret: string, authenticator: Authenticator<T>) {
+const COOKIE_NAME = "devtailjwt";
+const bearerExtractor = ExtractJwt.fromAuthHeaderAsBearerToken();
+
+export function setupPassport<T>(
+  secret: string,
+  authenticator: Authenticator<T>
+) {
   const passport = new KoaPassport();
   passport.use(
     new Strategy(
       {
-        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-        secretOrKey: secret,
+        jwtFromRequest: request =>
+          request?.cookies?.get(COOKIE_NAME, {
+            signed: true
+          }) ?? bearerExtractor(request),
+        secretOrKey: secret
       },
       async (jwtPayload, done) => {
         if (!jwtPayload.sub) {
@@ -34,8 +44,12 @@ export function setupPassport<T>(secret: string, authenticator: Authenticator<T>
 }
 
 export function setupTokenGenerator(secret: string) {
-  return (user: { id: string; email: string; signInProvider: string }) => {
-    return sign(
+  return (ctx: Context) => (user: {
+    id: string;
+    email: string;
+    signInProvider: string;
+  }) => {
+    const token = sign(
       {
         email: user.email,
         sign_in_provider: "password"
@@ -46,5 +60,12 @@ export function setupTokenGenerator(secret: string) {
         expiresIn: "7d"
       }
     );
+
+    ctx.cookies.set(COOKIE_NAME, token, {
+      httpOnly: true,
+      signed: true
+      //TODO: correctly set expires
+    });
+    return token;
   };
 }

@@ -11,7 +11,6 @@ import { Columns, Column } from "@devtale/ui/layout/Columns";
 import { useForm } from "react-hook-form";
 import { useRegisterMutation } from "generated/graphql";
 import NextLink from "next/link";
-import { setToken } from "../lib/cookie-auth";
 
 interface FormValues {
   email: string;
@@ -49,7 +48,6 @@ export default () => {
         }
       });
       console.log(data?.register);
-      setToken(data?.register);
     } catch (error) {
       console.error(error);
     }

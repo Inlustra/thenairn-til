@@ -1,5 +1,5 @@
 import { UserModel, UserDocument } from "../../database/user";
-import { AuthenticationError, UserInputError } from "apollo-server-koa";
+import { UserInputError } from "apollo-server-koa";
 import { Environment } from "../../environment";
 import {
   Resolvers,

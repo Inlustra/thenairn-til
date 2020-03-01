@@ -1,6 +1,6 @@
 db.createUser(
     {
-        user: 'tilas'
+        user: 'tilas',
         pwd: 'tilas',
         roles: [
             {

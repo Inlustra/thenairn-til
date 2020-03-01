@@ -15,7 +15,7 @@ generates:
       withComponent: false
       withHOC: false
       withHooks: true
-      withResultType: false
+      withResultType: true
     plugins:
       - typescript
       - typescript-operations

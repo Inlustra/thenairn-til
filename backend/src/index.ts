@@ -29,6 +29,7 @@ async function startServer() {
   );
   const tokenGenerator = setupTokenGenerator(environment.jwtSecretKey);
   const app = new Koa();
+  app.keys = environment.cookieSecretKeys;
   app.use(passport.initialize());
   app.use((ctx: any, next: any) =>
     passport.authenticate(
@@ -46,14 +47,14 @@ async function startServer() {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: ({ ctx: { user } }) => {
+    context: ({ ctx }: { ctx: Koa.Context }) => {
       return {
-        user,
+        user: ctx.user,
         environment,
         userModel,
         tilModel,
         tagModel,
-        tokenGenerator,
+        tokenGenerator: tokenGenerator(ctx),
         db
       };
     },
@@ -67,12 +68,23 @@ async function startServer() {
       credentials: true
     }
   });
-  app;
-  app.listen({ port: environment.port }, () =>
+  const appServer = app.listen({ port: environment.port }, () =>
     console.log(
       `🚀 Server ready at http://localhost:${environment.port}${server.graphqlPath}`
     )
   );
+
+  process.on("SIGTERM", () => {
+    console.log("Bye bye!");
+    appServer.close();
+    process.exit();
+  });
+
+  process.on("SIGINT", () => {
+    console.log("Bye bye!");
+    appServer.close();
+    process.exit();
+  });
 }
 
 startServer();
