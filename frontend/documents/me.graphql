@@ -1,0 +1,7 @@
+query MeSimple {
+    me {
+        id
+        email
+        username
+    }
+}

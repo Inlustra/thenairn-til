@@ -38,6 +38,7 @@ const Query: QueryResolvers<Context> = {
   }
 };
 
+
 const Mutation: MutationResolvers<Context> = {
   register: async (
     parent,

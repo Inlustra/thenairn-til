@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useMemo } from "react";
 import { Text } from "../framework/elements/Text";
 import { Container } from "../framework/layout/Container";
 import { Body, Hero } from "../framework/layout/Hero";
@@ -11,6 +11,8 @@ import { Columns, Column } from "@devtale/ui/layout/Columns";
 import { useForm } from "react-hook-form";
 import { useRegisterMutation } from "generated/graphql";
 import NextLink from "next/link";
+import { useRouter } from "next/router";
+import { withApollo } from "lib/apollo";
 
 interface FormValues {
   email: string;
@@ -18,7 +20,8 @@ interface FormValues {
   password: string;
 }
 
-export default () => {
+const Register = () => {
+  const router = useRouter();
   const { register: registerField, handleSubmit, errors } = useForm<FormValues>(
     {
       defaultValues: {
@@ -28,26 +31,19 @@ export default () => {
       }
     }
   );
-  const [queryError, setQueryError] = useState<React.ReactNode | null>(null);
-
   const [register, { loading, error }] = useRegisterMutation();
-  useEffect(() => {
-    if (!error) {
-      setQueryError(null);
-    } else {
-      setQueryError(
-        error.graphQLErrors.map(({ message }) => message).join(", ")
-      );
-    }
-  }, [error]);
+  const queryError = useMemo(
+    () => error?.graphQLErrors?.map(({ message }) => message).join(", "),
+    [error]
+  );
   const onSubmit = handleSubmit(async (values: FormValues) => {
     try {
-      const { data } = await register({
+      await register({
         variables: {
           register: values
         }
       });
-      console.log(data?.register);
+      router.push("/loggedin");
     } catch (error) {
       console.error(error);
     }
@@ -152,3 +148,5 @@ export default () => {
     </>
   );
 };
+
+export default withApollo(Register, { ssr: false });

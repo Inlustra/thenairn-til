@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import { Text } from "../framework/elements/Text";
 import { Container } from "../framework/layout/Container";
 import { Body, Hero } from "../framework/layout/Hero";
@@ -11,34 +11,29 @@ import { Columns, Column } from "@devtale/ui/layout/Columns";
 import { useForm } from "react-hook-form";
 import { useLoginLazyQuery } from "generated/graphql";
 import NextLink from "next/link";
+import { withApollo } from "lib/apollo";
 
 interface FormValues {
   email: string;
   password: string;
 }
 
-export default () => {
+const Login = () => {
   const { register, handleSubmit, errors } = useForm<FormValues>({
     defaultValues: {
       email: "",
       password: ""
     }
   });
-  const [queryError, setQueryError] = useState<React.ReactNode | null>(null);
   const [login, { loading, data, error }] = useLoginLazyQuery();
   useEffect(() => console.log(data), [data]);
-  useEffect(() => {
-    if (!error) {
-      setQueryError(null);
-    } else {
-      setQueryError(
-        error.graphQLErrors.map(({ message }) => message).join(", ")
-      );
-    }
-  }, [error]);
+  const queryError = useMemo(
+    () => error?.graphQLErrors?.map(({ message }) => message).join(", "),
+    [error]
+  );
   const onSubmit = handleSubmit((variables: FormValues) =>
     login({
-      variables,
+      variables
     })
   );
   return (
@@ -126,3 +121,5 @@ export default () => {
     </>
   );
 };
+
+export default withApollo(Login, { ssr: false });
