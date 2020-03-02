@@ -5,8 +5,9 @@ import { Container } from "../framework/layout/Container";
 import { Body, Hero } from "../framework/layout/Hero";
 import Gists from "../components/Gists";
 import { Topbar } from "_components/Topbar";
+import { withApollo } from "lib/apollo";
 
-export default () => (
+const App = () => (
   <>
     <Topbar />
     <Hero fullHeight bold color="danger">
@@ -38,3 +39,5 @@ export default () => (
     </Hero>
   </>
 );
+
+export default withApollo(App, { ssr: false });

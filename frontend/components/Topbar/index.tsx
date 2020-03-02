@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Navbar, Item, Menu, Content } from "../../framework/components/Navbar";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Logo } from "./Logo";
+import { useMeSimpleQuery } from "generated/graphql";
 
 const TopbarLink: React.FC<{ href: string }> = ({ href, children }) => {
   const { pathname } = useRouter();
@@ -14,23 +15,33 @@ const TopbarLink: React.FC<{ href: string }> = ({ href, children }) => {
     </Link>
   );
 };
-export const Topbar = () => (
-  <Navbar>
-    <Link href="/">
-      <Item link brand>
-        <Logo />
-      </Item>
-    </Link>
-    <Menu>
-      <TopbarLink href="/">Home</TopbarLink>
-      <Content position="start">
-        <TopbarLink href="/people">People</TopbarLink>
-      </Content>
-      <Content position="end">
-        <Item as="div">
-          <TopbarLink href="/login">Login</TopbarLink>
+export const Topbar = () => {
+  const { data, loading, error } = useMeSimpleQuery();
+  const loggedIn = useMemo(() => !!data?.me, [data]);
+  return (
+    <Navbar>
+      <Link href="/">
+        <Item link brand>
+          <Logo />
         </Item>
-      </Content>
-    </Menu>
-  </Navbar>
-);
+      </Link>
+      <Menu>
+        <TopbarLink href="/">Home</TopbarLink>
+        <Content position="start">
+          <TopbarLink href="/people">People</TopbarLink>
+        </Content>
+        <Content position="end">
+          {error ? (
+            error?.toString()
+          ) : loading ? (
+            "Loading.."
+          ) : loggedIn ? (
+            <TopbarLink href="/loggedin">Home</TopbarLink>
+          ) : (
+            <TopbarLink href="/login">Login</TopbarLink>
+          )}
+        </Content>
+      </Menu>
+    </Navbar>
+  );
+};
