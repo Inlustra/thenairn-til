@@ -12,6 +12,7 @@ let apolloClient: ApolloClient<any> | null = null;
 export interface NextApolloContext extends NextPageContext {
   apolloClient: ApolloClient<any>;
 }
+export type NextApolloPage<P = {}, IP = P> = NextComponentType<NextApolloContext, IP, P>;
 
 /**
  * Creates and provides the apolloContext
@@ -22,7 +23,7 @@ export interface NextApolloContext extends NextPageContext {
  * @param {Boolean} [config.ssr=true]
  */
 export function withApollo<P, IP>(
-  PageComponent: NextComponentType<NextApolloContext, IP, P>,
+  PageComponent: NextApolloPage<P, IP>,
   { ssr = true } = {}
 ) {
   const WithApollo: any = (props: any) => {

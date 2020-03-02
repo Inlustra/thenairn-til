@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import { Text } from "../framework/elements/Text";
 import { Container } from "../framework/layout/Container";
 import { Body, Hero } from "../framework/layout/Hero";
@@ -11,22 +11,22 @@ import { Columns, Column } from "@devtale/ui/layout/Columns";
 import { useForm } from "react-hook-form";
 import { useLoginLazyQuery } from "generated/graphql";
 import NextLink from "next/link";
-import { withApollo } from "lib/apollo";
+import { withApollo, NextApolloPage } from "lib/apollo";
+import { redirectAuthenticated } from "lib/ssr-redirects";
 
 interface FormValues {
   email: string;
   password: string;
 }
 
-const Login = () => {
+const Login: NextApolloPage = () => {
   const { register, handleSubmit, errors } = useForm<FormValues>({
     defaultValues: {
       email: "",
       password: ""
     }
   });
-  const [login, { loading, data, error }] = useLoginLazyQuery();
-  useEffect(() => console.log(data), [data]);
+  const [login, { loading, error }] = useLoginLazyQuery();
   const queryError = useMemo(
     () => error?.graphQLErrors?.map(({ message }) => message).join(", "),
     [error]
@@ -122,4 +122,9 @@ const Login = () => {
   );
 };
 
-export default withApollo(Login, { ssr: false });
+Login.getInitialProps = async ctx => {
+  await redirectAuthenticated("/loggedin", ctx);
+  return {};
+};
+
+export default withApollo(Login);

@@ -4,18 +4,16 @@ import { Column, Columns } from "../framework/layout/Columns";
 import { Container } from "../framework/layout/Container";
 import { Body, Hero } from "../framework/layout/Hero";
 import { Topbar } from "_components/Topbar";
-import { NextPage } from "next";
-import { redirectUnauthenticated } from "../lib/redirect-unauthenticated";
+import { redirectUnauthenticated } from "../lib/ssr-redirects";
 import { useMeSimpleQuery } from "generated/graphql";
-import { withApollo } from "lib/apollo";
+import { withApollo, NextApolloPage } from "lib/apollo";
 
 interface Props {}
 
-const LoggedInPage: NextPage<Props> = () => {
+const LoggedInPage: NextApolloPage<Props> = () => {
   const { data, loading, error } = useMeSimpleQuery({
     ssr: true
   });
-  console.log(data, error);
   return (
     <>
       <Topbar />
@@ -46,8 +44,8 @@ const LoggedInPage: NextPage<Props> = () => {
   );
 };
 
-LoggedInPage.getInitialProps = ctx => {
-  redirectUnauthenticated(ctx);
+LoggedInPage.getInitialProps = async ctx => {
+  await redirectUnauthenticated(ctx);
   return {};
 };
 
